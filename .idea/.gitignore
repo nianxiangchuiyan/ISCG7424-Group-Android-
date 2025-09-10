@@ -1,5 +1,11 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+.name
 tasks.xml
-dictionaries.xml
+dictionaries
+libraries
+gradle.xml
+assetWizardSettings.xml
+navEditor.xml
+other.xml
