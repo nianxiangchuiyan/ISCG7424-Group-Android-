@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "452373149491",
+    "project_id": "dinecraft-cc4c1",
+    "storage_bucket": "dinecraft-cc4c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452373149491:android:995b0755245eab06d43046",
+        "android_client_info": {
+          "package_name": "com.dinecraft.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxEXdWl8_fuyhE_evfveP5Tm55e4nGWsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
