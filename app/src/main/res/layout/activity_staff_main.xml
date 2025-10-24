@@ -8,17 +8,110 @@
     android:orientation="vertical"
     tools:context=".staff.StaffMainActivity">
 
-    <!-- include bottom nav -->
+    <!-- Profile -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-        <TextView
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        android:gravity="center_vertical">
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/account_circle"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_staff_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_staff_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email@email"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ib_staff_logout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/logout"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            android:text="Bookings"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/button_second"
+            app:backgroundTint="@null"
+            android:text="Foods"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/button_second"
+            app:backgroundTint="@null"
+            android:text="Tables"/>
+    </LinearLayout>
+
+    <!-- Date/Time filter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="dd/mm/yyyy"
+            android:gravity="center"
+            android:background="@drawable/border_bg"
+            android:textSize="22sp"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/calendar"
+            android:layout_marginHorizontal="5dp"/>
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/spinner_custom_bg"
+            android:layout_marginHorizontal="15dp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_staff_booking"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- include bottom nav -->
+
     <include layout="@layout/include_bottom_nav" />
 
 </LinearLayout>
