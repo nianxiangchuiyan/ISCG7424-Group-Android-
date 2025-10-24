@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_nav"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:padding="6dp">
+
+    <LinearLayout
+        android:id="@+id/nav_catalog"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView android:src="@drawable/category" android:layout_width="24dp" android:layout_height="24dp"/>
+        <TextView android:text="Category" android:textSize="12sp"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_search"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView android:src="@drawable/search" android:layout_width="24dp" android:layout_height="24dp"/>
+        <TextView android:text="Search" android:textSize="12sp"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_home"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView android:src="@drawable/home" android:layout_width="24dp" android:layout_height="24dp"/>
+        <TextView android:text="Home" android:textSize="12sp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_login"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView android:src="@drawable/account_circle" android:layout_width="24dp" android:layout_height="24dp"/>
+        <TextView android:text="Login" android:textSize="12sp"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_account"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <ImageView android:src="@drawable/account_circle" android:layout_width="24dp" android:layout_height="24dp"/>
+        <TextView android:text="Account" android:textSize="12sp"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
