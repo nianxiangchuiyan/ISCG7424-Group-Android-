@@ -21,6 +21,11 @@
         android:layout_height="wrap_content"
         android:text="Temp > Staff Dashboard"
         android:onClick="goStaff"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temp > Upload Data"
+        android:onClick="Updata"/>
 
     <!-- include bottom nav -->
     <LinearLayout

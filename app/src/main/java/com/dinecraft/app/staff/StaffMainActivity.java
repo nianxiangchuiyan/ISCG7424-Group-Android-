@@ -1,17 +1,27 @@
 package com.dinecraft.app.staff;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dinecraft.app.BaseActivity;
 import com.dinecraft.app.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
 
 public class StaffMainActivity extends BaseActivity {
+
+    private FirebaseFirestore db;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,10 @@
 package com.dinecraft.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Arrays;
@@ -57,5 +60,17 @@ public class UploadDataActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> Log.d("Firebase", "✅ Added " + food.getName()))
                     .addOnFailureListener(e -> Log.e("Firebase", "❌ Error adding " + food.getName(), e));
         }
+
+
+
     }
+
+    public void GoHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+
 }
