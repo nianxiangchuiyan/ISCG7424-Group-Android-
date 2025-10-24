@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042190941557",
+    "project_id": "dine-craft",
+    "storage_bucket": "dine-craft.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042190941557:android:2f175aaba7a76ec5a3a73c",
+        "android_client_info": {
+          "package_name": "com.dinecraft.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYKabtderwP3NjiESMShj0w4DK8ThfcNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
