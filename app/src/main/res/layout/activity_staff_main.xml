@@ -70,7 +70,9 @@
             android:paddingHorizontal="0dp"
             android:background="@drawable/button_second"
             app:backgroundTint="@null"
-            android:text="Foods"/>
+            android:text="Foods"
+            android:onClick="loadFoodData"
+            />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -118,14 +120,17 @@
             android:layout_marginStart="10dp"/>
     </LinearLayout>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_staff_booking"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:padding="16dp"
         />
-
+    </HorizontalScrollView>
     <!-- include bottom nav -->
 
     <include layout="@layout/include_bottom_nav" />

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DineCraft</string>
+    <string name="return_to_home">Return to Home</string>
 </resources>
