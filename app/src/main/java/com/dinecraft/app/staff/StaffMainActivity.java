@@ -1,5 +1,6 @@
 package com.dinecraft.app.staff;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.BaseActivity;
+import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -49,6 +51,13 @@ public class StaffMainActivity extends BaseActivity {
 
         // Initialize the bottom navigation bar
         setupBottomNav();
+
+        // Initialize the spinner for timeslots
+        Config.init_spinner(findViewById(R.id.spn_timeslot), R.array.staff_timeslot, this);
+        // Initialize the spinner for tables
+        Config.getInstance().init_table_spinner(findViewById(R.id.spn_table), this);
+
+
     }
 
     // Load data for Food from Firestore
@@ -68,5 +77,10 @@ public class StaffMainActivity extends BaseActivity {
                     adapter.notifyDataSetChanged();  // Notify adapter of new data
                 })
                 .addOnFailureListener(e -> Log.e("FirestoreTest", "Failed to load Food data", e));  // Log any errors
+    }
+
+    public void goToTables(View view) {
+        Intent i = new Intent(this, StaffTableListActivity.class);
+        startActivity(i);
     }
 }
