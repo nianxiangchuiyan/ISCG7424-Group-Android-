@@ -45,6 +45,7 @@ public class StaffTableAddActivity extends BaseActivity {
         table = new Table();
 
         btn_ok.setOnClickListener(v -> {
+            table.setId("2");
             table.setName(et_name.getText().toString());
             table.setSeat(Integer.parseInt(et_seats.getText().toString()));
             FirebaseFirestore db = FirebaseFirestore.getInstance();
