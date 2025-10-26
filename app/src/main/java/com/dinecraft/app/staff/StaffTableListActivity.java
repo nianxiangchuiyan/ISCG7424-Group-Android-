@@ -36,6 +36,7 @@ public class StaffTableListActivity extends BaseActivity {
 
         // Initialize the bottom navigation bar
         setupBottomNav();
+        setupStaffNav();
 
         tableList = Config.getInstance().getTableList();
         rv = findViewById(R.id.rv_staff_table_list);

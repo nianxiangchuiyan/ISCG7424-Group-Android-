@@ -51,6 +51,7 @@ public class StaffMainActivity extends BaseActivity {
 
         // Initialize the bottom navigation bar
         setupBottomNav();
+        setupStaffNav();
 
         // Initialize the spinner for timeslots
         Config.init_spinner(findViewById(R.id.spn_timeslot), R.array.staff_timeslot, this);

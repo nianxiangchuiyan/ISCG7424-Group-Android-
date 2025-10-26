@@ -1,10 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".staff.StaffTableDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Profile -->
+    <include layout="@layout/include_top_profile" />
+    <!-- Menu -->
+    <include layout="@layout/include_staff_nav" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="50dp"
+        android:gravity="start|center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Info:"
+            android:textSize="18sp"/>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Table Name"/>
+        <EditText
+            android:id="@+id/et_seats"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Seats"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="O K"/>
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_second"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="Cancel"/>
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_danger"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="Delete"/>
+    </LinearLayout>
+
+
+    <!-- include bottom nav -->
+    <include layout="@layout/include_bottom_nav" />
+
+</LinearLayout>

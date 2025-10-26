@@ -10,46 +10,8 @@
 
     <!-- Profile -->
     <include layout="@layout/include_top_profile" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
-        >
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
-            android:paddingHorizontal="0dp"
-            android:background="@drawable/button_primary"
-            app:backgroundTint="@null"
-            android:text="Bookings"
-
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
-            android:paddingHorizontal="0dp"
-            android:background="@drawable/button_second"
-            app:backgroundTint="@null"
-            android:text="Foods"
-            android:onClick="loadFoodData"
-            />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
-            android:paddingHorizontal="0dp"
-            android:background="@drawable/button_second"
-            app:backgroundTint="@null"
-            android:text="Tables"
-            android:onClick="goToTables"/>
-    </LinearLayout>
+    <!-- Menu -->
+    <include layout="@layout/include_staff_nav" />
 
     <!-- Date/Time filter -->
     <LinearLayout
@@ -72,7 +34,7 @@
             android:layout_marginHorizontal="5dp"/>
         <Spinner
             android:id="@+id/spn_table"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:spinnerMode="dropdown"
             android:background="@drawable/spinner_custom_bg"

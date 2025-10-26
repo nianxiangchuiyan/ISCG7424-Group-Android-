@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 import com.dinecraft.app.Table;
 
@@ -39,7 +40,8 @@ public class TableRVAdapter extends RecyclerView.Adapter<TableRVAdapter.TableVie
         holder.tv_table_name.setText(table.getName());
         holder.tv_table_seat.setText(String.valueOf(table.getSeat()));
         holder.cv_table.setOnClickListener( view -> {
-            //TODO put parameters
+            //put table data to config as parameters
+            Config.getInstance().setTable(table);
             Intent i = new Intent(context, StaffTableDetailActivity.class);
             context.startActivity(i);
         });

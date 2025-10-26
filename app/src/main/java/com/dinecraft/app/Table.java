@@ -40,6 +40,6 @@ public class Table {
 
     @NonNull
     public String toString(){
-        return this.name + " " + this.seat;
+        return this.name + "(" + this.seat+")";
     }
 }
