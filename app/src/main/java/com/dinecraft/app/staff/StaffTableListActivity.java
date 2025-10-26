@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.BaseActivity;
@@ -38,6 +39,7 @@ public class StaffTableListActivity extends BaseActivity {
 
         tableList = Config.getInstance().getTableList();
         rv = findViewById(R.id.rv_staff_table_list);
+        rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TableRVAdapter(this, tableList);
         rv.setAdapter(adapter);
     }
