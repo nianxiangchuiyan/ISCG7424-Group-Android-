@@ -1,6 +1,8 @@
 package com.dinecraft.app.staff;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class StaffTableListActivity extends BaseActivity {
     private List<Table> tableList;
     RecyclerView rv;
     TableRVAdapter adapter;
+    Button btn_add;
 
 
     @Override
@@ -43,5 +46,11 @@ public class StaffTableListActivity extends BaseActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TableRVAdapter(this, tableList);
         rv.setAdapter(adapter);
+
+        btn_add = findViewById(R.id.btn_add);
+        btn_add.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), StaffTableAddActivity.class));
+        });
+
     }
 }

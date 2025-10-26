@@ -27,7 +27,7 @@
             />
         <TextView
             android:id="@+id/tv_table_seat"
-            android:layout_width="30dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="4"
             android:textSize="20sp"

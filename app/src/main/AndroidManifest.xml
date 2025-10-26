@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DineCraft">
         <activity
+            android:name=".staff.StaffTableAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".staff.StaffTableDetailActivity"
             android:exported="false" />
         <activity
