@@ -8,7 +8,6 @@ public class Booking {
     private int timeslot;
     private int seat_required;
     private Table table;
-    private String table_name;
     private String pref_name;
     private String contact_number;
     private String memo;
@@ -56,12 +55,12 @@ public class Booking {
     }
 
     public String getTable_name() {
-        return table_name;
+        return this.table.getName();
     }
 
-    public void setTable_name(String table_name) {
-        this.table_name = table_name;
-    }
+//    public void setTable_name(String table_name) {
+//        this.table.setName(table_name);
+//    }
 
     public String getPref_name() {
         return pref_name;
