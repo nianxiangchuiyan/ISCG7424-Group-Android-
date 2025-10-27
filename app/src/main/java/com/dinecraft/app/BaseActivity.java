@@ -2,7 +2,6 @@ package com.dinecraft.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -10,11 +9,11 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dinecraft.app.Customer.CusFoodListActivity;
 import com.dinecraft.app.Customer.CustomerMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
 import com.dinecraft.app.staff.StaffTableListActivity;
+import com.dinecraft.app.LoginActivity;
 
 public class BaseActivity extends AppCompatActivity {
 

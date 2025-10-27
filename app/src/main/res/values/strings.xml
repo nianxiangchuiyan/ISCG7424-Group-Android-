@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DineCraft</string>
     <string name="return_to_home">Return to Home</string>
+    <string name="default_web_client_id">452373149491-3gvusnpkj0aep9d2c4558boh8iv0d0ii.apps.googleusercontent.com</string>
 
     <string-array name="staff_timeslot">
         <item>Any</item>
