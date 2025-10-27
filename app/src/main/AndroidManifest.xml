@@ -29,6 +29,12 @@
         <activity
             android:name=".UploadDataActivity"
             android:exported="false" />
+        <activity android:name=".staff.StaffFoodListActivity"
+            android:exported="false"/>
+        <activity android:name=".staff.StaffFoodAddActivity"
+            android:exported="false"/>
+        <activity android:name=".staff.StaffFoodDetailActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

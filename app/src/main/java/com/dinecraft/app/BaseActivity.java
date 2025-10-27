@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
 import com.dinecraft.app.staff.StaffTableListActivity;
 
@@ -27,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         if(btnFoods != null) {
             btnFoods.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, StaffMainActivity.class));
+                startActivity(new Intent(BaseActivity.this, StaffFoodListActivity.class));
             });
         }
         if(btnTables != null) {
