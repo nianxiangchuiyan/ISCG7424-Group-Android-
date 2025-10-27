@@ -3,7 +3,7 @@
     <string name="return_to_home">Return to Home</string>
 
     <string-array name="staff_timeslot">
-        <item>Any</item>
+        <item>Any Time</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
