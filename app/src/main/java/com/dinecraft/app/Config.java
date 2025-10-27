@@ -52,9 +52,6 @@ public class Config {
 //    }
 //
     public void init_table_spinner(Spinner spn_target, Context context) {
-        //spn_category = findViewById(R.id.spn_createquiz_category);
-
-        //if (listTable == null || listTableUpdated) {
             fetchTables(new FirestoreCallback() {
                 @Override
                 public void onComplete(List<Table> tables) {
@@ -74,8 +71,6 @@ public class Config {
                     Toast.makeText(context, "Error fetching tables: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-            //return;
-        //}
     }
 
 
@@ -113,6 +108,7 @@ public class Config {
                     if (task.isSuccessful()) {
                         Log.d("Firebase", "Tables fetched successfully");
                         listTable = new ArrayList<>();
+                        //listTable.add(new Table("0","Any",0));//First Item
                         for (var doc : task.getResult()) {
                             Table t = doc.toObject(Table.class);
                             listTable.add(t);

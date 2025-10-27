@@ -7,7 +7,8 @@ public class Booking {
     private Date date;
     private int timeslot;
     private int seat_required;
-    private Table table;
+    //private Table table;
+    private String table_name;
     private String pref_name;
     private String contact_number;
     private String memo;
@@ -46,22 +47,22 @@ public class Booking {
         this.seat_required = seat_required;
     }
 
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
+//    public Table getTable() {
+//        return table;
+//    }
+//
+//    public void setTable(Table table) {
+//        this.table = table;
+//    }
 
     public String getTable_name() {
-        if(this.table == null) return "";
-        return this.table.getName();
+        //if(this.table == null) return "";
+        return this.table_name;
     }
 
-//    public void setTable_name(String table_name) {
-//        this.table.setName(table_name);
-//    }
+    public void setTable_name(String table_name) {
+        this.table_name = table_name;
+    }
 
     public String getPref_name() {
         return pref_name;
