@@ -29,11 +29,17 @@
             android:background="@drawable/border_bg"
             android:textSize="16sp"/>
         <ImageView
+            android:id="@+id/iv_staff_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/delete"
+            android:layout_marginHorizontal="2dp"/>
+        <ImageView
             android:id="@+id/iv_staff_datepicker"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/calendar"
-            android:layout_marginHorizontal="5dp"/>
+            android:layout_marginHorizontal="2dp"/>
         <Spinner
             android:id="@+id/spn_table"
             android:layout_width="100dp"

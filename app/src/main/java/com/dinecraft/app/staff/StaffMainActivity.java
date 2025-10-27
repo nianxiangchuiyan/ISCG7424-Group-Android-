@@ -41,7 +41,7 @@ public class StaffMainActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private Spinner spn_table, spn_timeslot;
     private TextView tv_date;
-    private ImageView iv_datepicker;
+    private ImageView iv_datepicker, iv_delete;
 
     private boolean firsttimeTable =true;
     private boolean firsttimeTimeslot =true;
@@ -70,12 +70,15 @@ public class StaffMainActivity extends BaseActivity {
         spn_timeslot = findViewById(R.id.spn_timeslot);
         tv_date = findViewById(R.id.tv_staff_date);
         iv_datepicker = findViewById(R.id.iv_staff_datepicker);
+        iv_delete = findViewById(R.id.iv_staff_delete);
 
         // Initialize the spinner for timeslots
         Config.init_spinner(spn_timeslot, R.array.staff_timeslot, this);
         // Initialize the spinner for tables
         Config.getInstance().init_table_spinner(spn_table, this);
         iv_datepicker.setOnClickListener(v-> showDatePicker(tv_date));
+        iv_delete.setOnClickListener(v-> tv_date.setText("dd/mm/yyyy"));
+
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
@@ -179,7 +182,7 @@ public class StaffMainActivity extends BaseActivity {
             }
         }
 
-        if(!strTimeslot.equals("Any")){
+        if(!strTimeslot.contains("Any")){
             for(Booking booking : allBookings) {
                 if (booking.getTimeslot() != selectedTimeslot) {
                     filteredList.remove(booking);

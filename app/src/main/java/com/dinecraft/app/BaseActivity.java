@@ -2,6 +2,7 @@ package com.dinecraft.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -9,6 +10,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dinecraft.app.Customer.CusFoodListActivity;
+import com.dinecraft.app.Customer.CustomerBookingAddActivity;
 import com.dinecraft.app.Customer.CustomerMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
@@ -71,7 +74,7 @@ public class BaseActivity extends AppCompatActivity {
         if (navBooking != null) {
             navBooking.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    //startActivity(new Intent(BaseActivity.this, CategoryActivity.class));
+                    startActivity(new Intent(BaseActivity.this, CustomerBookingAddActivity.class));
                 }
             });
         }
@@ -89,6 +92,8 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
         }
+
+
         if (navAccount != null) {
             navAccount.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
