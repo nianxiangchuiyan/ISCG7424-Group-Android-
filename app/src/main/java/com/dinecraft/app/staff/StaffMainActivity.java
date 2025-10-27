@@ -143,4 +143,8 @@ public class StaffMainActivity extends BaseActivity {
         Intent i = new Intent(this, StaffTableListActivity.class);
         startActivity(i);
     }
+    public void goToFoods(View view) {
+        Intent i = new Intent(this, StaffFoodListActivity.class);
+        startActivity(i);
+    }
 }

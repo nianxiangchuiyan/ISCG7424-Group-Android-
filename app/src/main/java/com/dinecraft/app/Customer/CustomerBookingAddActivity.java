@@ -1,0 +1,84 @@
+package com.dinecraft.app.Customer;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.dinecraft.app.BaseActivity;
+import com.dinecraft.app.Customer.CustomerMainActivity;
+import com.dinecraft.app.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+public class CustomerBookingAddActivity extends BaseActivity {
+
+    private EditText edtDate, edtTimeslot, edtSeats, edtTableName, edtContact, edtMemo;
+    private Button btnAdd, btnCancel;
+    private String prefName;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_booking_add);
+        setupStaffNav();
+
+        prefName = getIntent().getStringExtra("pref_name");
+        if (prefName == null) prefName = "Temp-Customer";
+
+        edtDate = findViewById(R.id.edt_date);
+        edtTimeslot = findViewById(R.id.edt_timeslot);
+        edtSeats = findViewById(R.id.edt_seats);
+        edtTableName = findViewById(R.id.edt_table_name);
+        edtContact = findViewById(R.id.edt_contact_number);
+        edtMemo = findViewById(R.id.edt_memo);
+
+        btnAdd = findViewById(R.id.btn_add);
+        btnCancel = findViewById(R.id.btn_cancel);
+
+        btnAdd.setOnClickListener(v -> {
+            String id = UUID.randomUUID().toString();
+            String dateStr = edtDate.getText().toString().trim();
+            int timeslot = parseIntSafe(edtTimeslot.getText().toString().trim());
+            int seats = parseIntSafe(edtSeats.getText().toString().trim());
+            String tableName = edtTableName.getText().toString().trim();
+            String contact = edtContact.getText().toString().trim();
+            String memo = edtMemo.getText().toString().trim();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("booking_id", id);
+            data.put("pref_name", prefName);
+            data.put("timeslot", timeslot);
+            data.put("seat_required", seats);
+            data.put("table_name", tableName);
+            data.put("contact_number", contact);
+            data.put("memo", memo);
+            // store date as timestamp if empty: now
+            data.put("date", new Date());
+
+            FirebaseFirestore.getInstance().collection("bookings").document(id).set(data)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Booking added", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(this, CustomerMainActivity.class);
+                        i.putExtra("pref_name", prefName);
+                        startActivity(i);
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "Add failed", Toast.LENGTH_SHORT).show());
+        });
+
+        btnCancel.setOnClickListener(v -> {
+            Intent i = new Intent(this, CustomerMainActivity.class);
+            i.putExtra("pref_name", prefName);
+            startActivity(i);
+            finish();
+        });
+    }
+
+    private int parseIntSafe(String s) { try { return Integer.parseInt(s); } catch (Exception e) { return 0; } }
+}
