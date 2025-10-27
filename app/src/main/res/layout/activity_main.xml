@@ -24,6 +24,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Temp > Customer Dashboard"
+        android:onClick="goToCustomerMain"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Temp > Upload Data"
         android:onClick="Updata"/>
 

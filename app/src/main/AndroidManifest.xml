@@ -36,6 +36,14 @@
         <activity android:name=".staff.StaffFoodDetailActivity"
 
             android:exported="false"/>
+
+        <activity android:name=".Customer.CustomerBookingAddActivity" android:exported="false" />
+        <activity android:name=".Customer.CustomerBookingDeleteActivity" android:exported="false" />
+        <activity android:name=".Customer.CustomerBookingDetailActivity" android:exported="false" />
+        <activity android:name=".Customer.CustomerMainActivity" android:exported="false" />
+        <activity android:name=".Customer.CusFoodListActivity" android:exported="false"/>
+        <activity android:name=".Customer.CusFoodAddActivity" android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

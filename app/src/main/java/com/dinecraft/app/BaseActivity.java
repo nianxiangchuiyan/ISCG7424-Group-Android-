@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dinecraft.app.Customer.CusFoodListActivity;
+import com.dinecraft.app.Customer.CustomerMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
 import com.dinecraft.app.staff.StaffTableListActivity;
@@ -34,6 +36,28 @@ public class BaseActivity extends AppCompatActivity {
         if(btnTables != null) {
             btnTables.setOnClickListener(v -> {
                 startActivity(new Intent(BaseActivity.this, StaffTableListActivity.class));
+            });
+        }
+
+    }
+    public void setupCusNav(){
+        Button btnBookings = findViewById(R.id.btn_staff_bookings);
+        Button btnFoods = findViewById(R.id.btn_staff_foods);
+        Button btnTables = findViewById(R.id.btn_staff_tables);
+
+        if (btnBookings != null) {
+            btnBookings.setOnClickListener(v -> {
+                startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
+            });
+        }
+        if(btnFoods != null) {
+            btnFoods.setOnClickListener(v -> {
+                startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
+            });
+        }
+        if(btnTables != null) {
+            btnTables.setOnClickListener(v -> {
+                startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
             });
         }
 
