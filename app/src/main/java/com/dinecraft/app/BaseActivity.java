@@ -38,18 +38,15 @@ public class BaseActivity extends AppCompatActivity {
 
     }
     public void setupBottomNav() {
-        //Log.d("DEBUG", "==== to here 1==== ");
-        LinearLayout navCatalog = findViewById(R.id.nav_catalog);
+        LinearLayout navBooking = findViewById(R.id.nav_booking);
         LinearLayout navSearch = findViewById(R.id.nav_search);
         LinearLayout navHome = findViewById(R.id.nav_home);
         LinearLayout navAccount = findViewById(R.id.nav_account);
         LinearLayout navLogin = findViewById(R.id.nav_login);
 
-        if (navCatalog != null) {
-            //Log.d("DEBUG", "==== 2 ==== ");
-            navCatalog.setOnClickListener(new View.OnClickListener() {
+        if (navBooking != null) {
+            navBooking.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    //Log.d("DEBUG", "==== 3 ==== ");
                     //startActivity(new Intent(BaseActivity.this, CategoryActivity.class));
                 }
             });
