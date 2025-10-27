@@ -3,12 +3,16 @@ package com.dinecraft.app.staff;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -18,26 +22,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.BaseActivity;
+import com.dinecraft.app.Booking;
 import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class StaffMainActivity extends BaseActivity {
 
     private FirebaseFirestore db;
+    private List<Booking> allBookings;
     private RecyclerView recyclerView;
     private Spinner spn_table, spn_timeslot;
     private TextView tv_date;
     private ImageView iv_datepicker;
 
+    private boolean firsttimeTable =true;
+    private boolean firsttimeTimeslot =true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
 
         // Inflate the layout first
         setContentView(R.layout.activity_staff_main);
@@ -66,11 +79,123 @@ public class StaffMainActivity extends BaseActivity {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+        db.collection("bookings")
+                //.whereEqualTo("staff_id", Config.getInstance().getStaffId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    allBookings = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Booking booking = document.toObject(Booking.class);
+                        allBookings.add(booking);
+                    }
+                    refreshBookingList(allBookings);
 
-        // Now find the RecyclerView after setContentView
-        recyclerView = findViewById(R.id.rv_staff_booking);  // Ensure this ID matches the RecyclerView in your XML layout
-        // Set up RecyclerView with GridLayoutManager (5 columns for a table-like layout)
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // 5 columns for ID, Name, Category, Price, and Description
+                })
+                .addOnFailureListener( e -> {
+                    Log.e("FirestoreTest", "Failed to load bookings", e);
+                    Toast.makeText(this, "Failed to load bookings", Toast.LENGTH_SHORT).show();
+                });
+
+        tv_date.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //Toast.makeText(StaffMainActivity.this, "after Date changed", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                return;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(StaffMainActivity.this, "on Date changed", Toast.LENGTH_SHORT).show();
+
+                refreshBookingList(filterTheList());
+            }
+        });
+        spn_table.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!firsttimeTable) {
+                    refreshBookingList(filterTheList());
+                }
+                else{
+                    firsttimeTable = false;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spn_timeslot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(!firsttimeTimeslot) {
+                    refreshBookingList(filterTheList());
+                }
+                else{
+                    firsttimeTimeslot = false;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+    }
+
+    public List<Booking> filterTheList(){
+        String selectedTable = spn_table.getSelectedItem().toString();
+        int selectedTimeslot = 0;
+        String strTimeslot = spn_timeslot.getSelectedItem().toString();
+        try{
+            selectedTimeslot = Integer.parseInt(strTimeslot);
+        } catch (Exception e){
+            //Toast.makeText(this, "Invalid timeslot", Toast.LENGTH_SHORT).show();
+            //return;
+        }
+        String strDate = tv_date.getText().toString();
+
+        if(allBookings==null){
+            Toast.makeText(this, "No bookings to show", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        List<Booking> filteredList = new ArrayList<>();
+        filteredList.addAll(allBookings);
+
+
+        if(!strDate.equals("dd/mm/yyyy")){
+            for(Booking booking : allBookings) {
+
+                if (!new SimpleDateFormat("dd/MM/yyyy").format(booking.getDate()).equals(strDate)) {
+                    filteredList.remove(booking);
+                }
+            }
+        }
+
+        if(!strTimeslot.equals("Any")){
+            for(Booking booking : allBookings) {
+                if (booking.getTimeslot() != selectedTimeslot) {
+                    filteredList.remove(booking);
+                }
+            }
+        }
+
+        if(!selectedTable.contains("Any")){
+            for(Booking booking : allBookings) {
+                if (!booking.getTable_name().equals(selectedTable)) {
+                    filteredList.remove(booking);
+                }
+            }
+        }
+
+        return filteredList;
 
     }
 
@@ -93,31 +218,15 @@ public class StaffMainActivity extends BaseActivity {
         dialog.show();
     }
 
-    // Load data for Food from Firestore
-    public void loadFoodData(View view) {
-        List<FoodModel> foodList = new ArrayList<>();
-        FoodAdapter adapter = new FoodAdapter(foodList);
+    public void refreshBookingList(List<Booking> listToShow){
+        if(listToShow==null){
+            Toast.makeText(this, "No bookings to show", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        recyclerView = findViewById(R.id.rv_staff_booking);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        BookingRVAdapter adapter = new BookingRVAdapter(listToShow, this);
         recyclerView.setAdapter(adapter);
 
-        db.collection("Food")
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    foodList.clear();  // Clear existing data before adding new
-                    for (QueryDocumentSnapshot doc : querySnapshot) {
-                        FoodModel food = doc.toObject(FoodModel.class);  // Convert Firestore document to FoodModel
-                        foodList.add(food);
-                    }
-                    adapter.notifyDataSetChanged();  // Notify adapter of new data
-                })
-                .addOnFailureListener(e -> Log.e("FirestoreTest", "Failed to load Food data", e));  // Log any errors
-    }
-
-    public void goToTables(View view) {
-        Intent i = new Intent(this, StaffTableListActivity.class);
-        startActivity(i);
-    }
-    public void goToFoods(View view) {
-        Intent i = new Intent(this, StaffFoodListActivity.class);
-        startActivity(i);
     }
 }

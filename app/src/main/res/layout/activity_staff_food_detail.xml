@@ -13,39 +13,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:gravity="center"
+        android:padding="50dp">
 
         <EditText
             android:id="@+id/edt_food_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
             android:hint="Food Name"/>
 
         <EditText
             android:id="@+id/edt_food_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
             android:hint="Category"/>
 
         <EditText
             android:id="@+id/edt_food_price"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
             android:inputType="numberDecimal"
             android:hint="Price"/>
 
         <EditText
             android:id="@+id/edt_food_description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
             android:hint="Description"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="end"
         android:padding="16dp">
 
@@ -53,19 +67,28 @@
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_second"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
             android:text="Cancel"/>
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"/>
 
         <Button
             android:id="@+id/btn_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
             android:text="Update"/>
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_danger"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="Delete"/>
     </LinearLayout>
 
     <include layout="@layout/include_bottom_nav" />
