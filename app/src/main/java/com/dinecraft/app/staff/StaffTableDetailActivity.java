@@ -37,6 +37,7 @@ public class StaffTableDetailActivity extends BaseActivity {
         //Initialize the bottom navigation bar
         setupBottomNav();
         setupStaffNav();
+        setupTopProfile();
 
         et_name = findViewById(R.id.et_name);
         et_seats = findViewById(R.id.et_seats);

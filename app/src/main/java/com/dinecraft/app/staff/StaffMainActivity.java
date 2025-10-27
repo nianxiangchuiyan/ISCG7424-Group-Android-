@@ -25,6 +25,8 @@ import com.dinecraft.app.BaseActivity;
 import com.dinecraft.app.Booking;
 import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -46,6 +48,10 @@ public class StaffMainActivity extends BaseActivity {
     private boolean firsttimeTable =true;
     private boolean firsttimeTimeslot =true;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +68,12 @@ public class StaffMainActivity extends BaseActivity {
             return insets;
         });
 
+
+
         // Initialize the bottom navigation bar
         setupBottomNav();
         setupStaffNav();
+        setupTopProfile();
 
         spn_table = findViewById(R.id.spn_table);
         spn_timeslot = findViewById(R.id.spn_timeslot);

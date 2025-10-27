@@ -6,6 +6,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.dinecraft.app.BaseActivity;
 import com.dinecraft.app.R;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,7 +28,14 @@ public class StaffFoodAddActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_food_add);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        setupBottomNav();
         setupStaffNav();
+        setupTopProfile();
 
         edt_name = findViewById(R.id.edt_food_name);
         edt_category = findViewById(R.id.edt_food_category);

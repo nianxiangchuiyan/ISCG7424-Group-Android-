@@ -16,20 +16,14 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_staff_name"
+            android:id="@+id/tv_staff_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
             android:textSize="18sp"/>
-        <TextView
-            android:id="@+id/tv_staff_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="email@email"
-            android:textSize="14sp"/>
     </LinearLayout>
     <ImageView
-        android:id="@+id/ib_staff_logout"
+        android:id="@+id/iv_staff_logout"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/logout"/>
