@@ -18,6 +18,7 @@ public class Config {
     private Config() {
     }
 
+    //This member var is ONLY used by Staff's activities
     private Table table;
 
     private List<Table> listTable;
@@ -78,23 +79,26 @@ public class Config {
     }
 
 
+    //This method is ONLY used by Staff's activities
     public Table getTable() {
         return table;
     }
 
+    //This method is ONLY used by Staff's activities
     public void setTable(Table table) {
         this.table = table;
     }
 
+    //This method can be used by all activities, listTable is global.
     public List<Table> getTableList() {
         return listTable;
     }
-
+    //This method can be used by all activities, listTable is global.
     public void setTableList(List<Table> listTable) {
         this.listTable = listTable;
     }
 
-    //Define a interface para o callback
+    //Define a interface para for fetchTable() to callback
     public interface FirestoreCallback {
         void onComplete(List<Table> tables);
 

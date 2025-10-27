@@ -9,6 +9,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.BaseActivity;
+import com.dinecraft.app.Booking;
 import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +32,7 @@ import java.util.List;
 public class StaffMainActivity extends BaseActivity {
 
     private FirebaseFirestore db;
+    private List<Booking> allBookings;
     private RecyclerView recyclerView;
     private Spinner spn_table, spn_timeslot;
     private TextView tv_date;
@@ -66,11 +69,23 @@ public class StaffMainActivity extends BaseActivity {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+        db.collection("bookings")
+                //.whereEqualTo("staff_id", Config.getInstance().getStaffId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    allBookings = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Booking booking = document.toObject(Booking.class);
+                        allBookings.add(booking);
+                    }
+                    refreshBookingList(allBookings);
 
-        // Now find the RecyclerView after setContentView
-        recyclerView = findViewById(R.id.rv_staff_booking);  // Ensure this ID matches the RecyclerView in your XML layout
-        // Set up RecyclerView with GridLayoutManager (5 columns for a table-like layout)
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // 5 columns for ID, Name, Category, Price, and Description
+                })
+                .addOnFailureListener( e -> {
+                    Log.e("FirestoreTest", "Failed to load bookings", e);
+                    Toast.makeText(this, "Failed to load bookings", Toast.LENGTH_SHORT).show();
+                });
+
 
     }
 
@@ -93,24 +108,36 @@ public class StaffMainActivity extends BaseActivity {
         dialog.show();
     }
 
-    // Load data for Food from Firestore
-    public void loadFoodData(View view) {
-        List<FoodModel> foodList = new ArrayList<>();
-        FoodAdapter adapter = new FoodAdapter(foodList);
+    public void refreshBookingList(List<Booking> listToShow){
+        if(listToShow==null){
+            Toast.makeText(this, "No bookings to show", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        recyclerView = findViewById(R.id.rv_staff_booking);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        BookingRVAdapter adapter = new BookingRVAdapter(listToShow, this);
         recyclerView.setAdapter(adapter);
 
-        db.collection("Food")
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    foodList.clear();  // Clear existing data before adding new
-                    for (QueryDocumentSnapshot doc : querySnapshot) {
-                        FoodModel food = doc.toObject(FoodModel.class);  // Convert Firestore document to FoodModel
-                        foodList.add(food);
-                    }
-                    adapter.notifyDataSetChanged();  // Notify adapter of new data
-                })
-                .addOnFailureListener(e -> Log.e("FirestoreTest", "Failed to load Food data", e));  // Log any errors
     }
+
+//    // Load data for Food from Firestore
+//    public void loadFoodData(View view) {
+//        List<FoodModel> foodList = new ArrayList<>();
+//        FoodAdapter adapter = new FoodAdapter(foodList);
+//        recyclerView.setAdapter(adapter);
+//
+//        db.collection("Food")
+//                .get()
+//                .addOnSuccessListener(querySnapshot -> {
+//                    foodList.clear();  // Clear existing data before adding new
+//                    for (QueryDocumentSnapshot doc : querySnapshot) {
+//                        FoodModel food = doc.toObject(FoodModel.class);  // Convert Firestore document to FoodModel
+//                        foodList.add(food);
+//                    }
+//                    adapter.notifyDataSetChanged();  // Notify adapter of new data
+//                })
+//                .addOnFailureListener(e -> Log.e("FirestoreTest", "Failed to load Food data", e));  // Log any errors
+//    }
 
     public void goToTables(View view) {
         Intent i = new Intent(this, StaffTableListActivity.class);

@@ -55,6 +55,7 @@ public class Booking {
     }
 
     public String getTable_name() {
+        if(this.table == null) return "";
         return this.table.getName();
     }
 
