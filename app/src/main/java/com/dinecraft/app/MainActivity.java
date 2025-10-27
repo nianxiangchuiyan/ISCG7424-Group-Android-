@@ -30,6 +30,8 @@ public class MainActivity extends BaseActivity {
         });
         //init button nav bar
         setupBottomNav();
+        //setupStaffNav();
+        //setupTopProfile();
     }
 
 

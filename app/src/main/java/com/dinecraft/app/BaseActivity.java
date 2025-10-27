@@ -108,32 +108,41 @@ public class BaseActivity extends AppCompatActivity {
             });
         }
 
+        if(currentUser != null) {
+            navLogin.setVisibility(View.GONE);
+            navAccount.setVisibility(View.VISIBLE);
 
-        if (navAccount != null) {
-            navAccount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Will need conditions for diff role
-                    //startActivity(new Intent(BaseActivity.this, DashboardUserActivity.class));
-                }
-            });
-        }
+            if (navAccount != null) {
+                navAccount.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Will need conditions for diff role
+                        //startActivity(new Intent(BaseActivity.this, DashboardUserActivity.class));
+                    }
+                });
+            }
 
+        }else {
+            navLogin.setVisibility(View.VISIBLE);
+            navAccount.setVisibility(View.GONE);
 
-        //either show Login or Account
-        if (navLogin != null) {
-            navLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(BaseActivity.this, LoginActivity.class));
-                }
-            });
+            //either show Login or Account
+            if (navLogin != null) {
+                navLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(BaseActivity.this, LoginActivity.class));
+                    }
+                });
+            }
         }
     }
 
     public void setupTopProfile() {
         TextView tv_email = findViewById(R.id.tv_staff_email);
         ImageView iv_logout = findViewById(R.id.iv_staff_logout);
+        if(tv_email==null || iv_logout==null) return;
+
         tv_email.setText(currentUser.getEmail());
         iv_logout.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(this)
