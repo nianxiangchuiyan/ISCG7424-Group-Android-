@@ -43,6 +43,10 @@ public class StaffMainActivity extends BaseActivity {
     private TextView tv_date;
     private ImageView iv_datepicker;
 
+    private boolean firsttimeTable =true;
+    private boolean firsttimeTimeslot =true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +118,12 @@ public class StaffMainActivity extends BaseActivity {
         spn_table.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                refreshBookingList(filterTheList());
+                if(!firsttimeTable) {
+                    refreshBookingList(filterTheList());
+                }
+                else{
+                    firsttimeTable = false;
+                }
             }
 
             @Override
@@ -126,7 +135,12 @@ public class StaffMainActivity extends BaseActivity {
         spn_timeslot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                refreshBookingList(filterTheList());
+                if(!firsttimeTimeslot) {
+                    refreshBookingList(filterTheList());
+                }
+                else{
+                    firsttimeTimeslot = false;
+                }
             }
 
             @Override
@@ -147,14 +161,6 @@ public class StaffMainActivity extends BaseActivity {
             //return;
         }
         String strDate = tv_date.getText().toString();
-//        Date selectedDate = null;
-//        try{
-//            selectedDate = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
-//        } catch (Exception e){
-//            //Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
-//            //return;
-//
-//        }
 
         if(allBookings==null){
             Toast.makeText(this, "No bookings to show", Toast.LENGTH_SHORT).show();
@@ -165,7 +171,7 @@ public class StaffMainActivity extends BaseActivity {
 
 
         if(!strDate.equals("dd/mm/yyyy")){
-            for(Booking booking : filteredList) {
+            for(Booking booking : allBookings) {
 
                 if (!new SimpleDateFormat("dd/MM/yyyy").format(booking.getDate()).equals(strDate)) {
                     filteredList.remove(booking);
@@ -174,7 +180,7 @@ public class StaffMainActivity extends BaseActivity {
         }
 
         if(!strTimeslot.equals("Any")){
-            for(Booking booking : filteredList) {
+            for(Booking booking : allBookings) {
                 if (booking.getTimeslot() != selectedTimeslot) {
                     filteredList.remove(booking);
                 }
@@ -182,7 +188,7 @@ public class StaffMainActivity extends BaseActivity {
         }
 
         if(!selectedTable.contains("Any")){
-            for(Booking booking : filteredList) {
+            for(Booking booking : allBookings) {
                 if (!booking.getTable_name().equals(selectedTable)) {
                     filteredList.remove(booking);
                 }
