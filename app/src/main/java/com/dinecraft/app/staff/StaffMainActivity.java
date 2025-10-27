@@ -1,15 +1,20 @@
 package com.dinecraft.app.staff;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.BaseActivity;
@@ -19,12 +24,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class StaffMainActivity extends BaseActivity {
 
     private FirebaseFirestore db;
     private RecyclerView recyclerView;
+    private Spinner spn_table, spn_timeslot;
+    private TextView tv_date;
+    private ImageView iv_datepicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +41,6 @@ public class StaffMainActivity extends BaseActivity {
 
         // Inflate the layout first
         setContentView(R.layout.activity_staff_main);
-
-        // Now find the RecyclerView after setContentView
-        recyclerView = findViewById(R.id.rv_staff_booking);  // Ensure this ID matches the RecyclerView in your XML layout
-
-        // Initialize Firestore
-        db = FirebaseFirestore.getInstance();
-
-        // Set up RecyclerView with GridLayoutManager (5 columns for a table-like layout)
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1)); // 5 columns for ID, Name, Category, Price, and Description
 
         // Set window insets for the UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -53,12 +53,44 @@ public class StaffMainActivity extends BaseActivity {
         setupBottomNav();
         setupStaffNav();
 
+        spn_table = findViewById(R.id.spn_table);
+        spn_timeslot = findViewById(R.id.spn_timeslot);
+        tv_date = findViewById(R.id.tv_staff_date);
+        iv_datepicker = findViewById(R.id.iv_staff_datepicker);
+
         // Initialize the spinner for timeslots
-        Config.init_spinner(findViewById(R.id.spn_timeslot), R.array.staff_timeslot, this);
+        Config.init_spinner(spn_timeslot, R.array.staff_timeslot, this);
         // Initialize the spinner for tables
-        Config.getInstance().init_table_spinner(findViewById(R.id.spn_table), this);
+        Config.getInstance().init_table_spinner(spn_table, this);
+        iv_datepicker.setOnClickListener(v-> showDatePicker(tv_date));
 
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance();
 
+        // Now find the RecyclerView after setContentView
+        recyclerView = findViewById(R.id.rv_staff_booking);  // Ensure this ID matches the RecyclerView in your XML layout
+        // Set up RecyclerView with GridLayoutManager (5 columns for a table-like layout)
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // 5 columns for ID, Name, Category, Price, and Description
+
+    }
+
+    private void showDatePicker(TextView tvDate) {
+        // 获取当前日期
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // 创建日期选择器对话框
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                (DatePicker view, int year1, int month1, int dayOfMonth) -> {
+                    String selectedDate = dayOfMonth + "/" + (month1 + 1) + "/" + year1;
+                    tvDate.setText(selectedDate);
+                },
+                year, month, day
+        );
+        dialog.show();
     }
 
     // Load data for Food from Firestore
