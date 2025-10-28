@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DineCraft">
         <activity
+            android:name=".ProfileEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".staff.StaffBookingAddActivity"
             android:exported="false" />
         <activity

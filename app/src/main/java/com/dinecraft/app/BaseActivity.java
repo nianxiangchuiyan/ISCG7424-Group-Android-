@@ -109,25 +109,25 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         if(currentUser != null) {
-            navLogin.setVisibility(View.GONE);
-            navAccount.setVisibility(View.VISIBLE);
 
             if (navAccount != null) {
+                navLogin.setVisibility(View.GONE);
+                navAccount.setVisibility(View.VISIBLE);
                 navAccount.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Will need conditions for diff role
-                        //startActivity(new Intent(BaseActivity.this, DashboardUserActivity.class));
+                        startActivity(new Intent(BaseActivity.this, ProfileEditActivity.class));
                     }
                 });
             }
 
         }else {
-            navLogin.setVisibility(View.VISIBLE);
-            navAccount.setVisibility(View.GONE);
 
             //either show Login or Account
             if (navLogin != null) {
+                navLogin.setVisibility(View.VISIBLE);
+                navAccount.setVisibility(View.GONE);
                 navLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
