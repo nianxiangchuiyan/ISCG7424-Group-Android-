@@ -8,11 +8,11 @@
     <Button
         android:id="@+id/btn_staff_bookings"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:layout_marginHorizontal="5dp"
         android:paddingHorizontal="0dp"
-        android:background="@drawable/button_second"
+        android:background="@drawable/button_primary_selector"
         app:backgroundTint="@null"
         android:text="Bookings"
 
@@ -20,22 +20,22 @@
     <Button
         android:id="@+id/btn_staff_foods"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:layout_marginHorizontal="5dp"
         android:paddingHorizontal="0dp"
-        android:background="@drawable/button_second"
+        android:background="@drawable/button_primary_selector"
         app:backgroundTint="@null"
         android:text="Foods"
         />
     <Button
         android:id="@+id/btn_staff_tables"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:layout_marginHorizontal="5dp"
         android:paddingHorizontal="0dp"
-        android:background="@drawable/button_second"
+        android:background="@drawable/button_primary_selector"
         app:backgroundTint="@null"
         android:text="Tables"/>
 </LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 按下状态 (state_pressed="true") -->
+    <!-- 注意：此项必须放在默认项之前，因为选择器会按顺序匹配 -->
+    <item android:drawable="@drawable/button_primary" android:state_pressed="true" />
+
+    <!-- 默认状态 (没有指定任何状态) -->
+    <item android:drawable="@drawable/button_second" />
+
+</selector>
