@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DineCraft">
-
+        <activity
+            android:name=".staff.StaffBookingDetailActivity"
+            android:exported="false" />
         <!-- Staff Activities -->
         <activity android:name=".staff.StaffTableAddActivity" android:exported="false" />
         <activity android:name=".staff.StaffTableDetailActivity" android:exported="false" />

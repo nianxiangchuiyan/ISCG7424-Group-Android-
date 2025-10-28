@@ -1,6 +1,7 @@
 package com.dinecraft.app.staff;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinecraft.app.Booking;
+import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 
 import java.text.SimpleDateFormat;
@@ -46,6 +48,8 @@ public class BookingRVAdapter extends RecyclerView.Adapter<BookingRVAdapter.Book
         holder.tv_seatrequired.setText(String.valueOf(booking.getSeat_required()));
         holder.cardview.setOnClickListener( aVoid -> {
             Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+            Config.getInstance().setStaffBooking(booking);
+            context.startActivity(new Intent(context, StaffBookingDetailActivity.class));
         });
     }
 

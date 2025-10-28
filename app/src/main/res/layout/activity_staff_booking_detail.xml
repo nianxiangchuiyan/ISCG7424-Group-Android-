@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".staff.StaffBookingDetailActivity">
+
+    <include layout="@layout/include_top_profile" />
+
+    <include layout="@layout/include_staff_nav" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="5dp">
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="6dp"
+            android:textSize="20sp"
+            android:text="dd/mm/yyyy"/>
+            <ImageView
+                android:id="@+id/iv_datedelete"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:layout_marginHorizontal="5dp"/>
+            <ImageView
+                android:id="@+id/iv_datepicker"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/calendar"
+                android:layout_marginHorizontal="2dp"/>
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spn_timeslot"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinner_custom_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="5dp"/>
+
+        <EditText
+            android:id="@+id/edt_prefname"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Prefer Name"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/edt_seats"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Seat required"
+            android:inputType="number" />
+
+        <Spinner
+            android:id="@+id/spn_table_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinner_custom_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Table name" />
+
+        <EditText
+            android:id="@+id/edt_contact_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Contact number"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edt_memo"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_bg"
+            android:paddingHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Memo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_second"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"
+            android:layout_marginHorizontal="5dp"
+            android:text="Update" />
+    </LinearLayout>
+
+    <include layout="@layout/include_bottom_nav" />
+</LinearLayout>

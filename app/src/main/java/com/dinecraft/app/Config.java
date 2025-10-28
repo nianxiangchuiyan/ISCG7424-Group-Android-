@@ -13,15 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
+
+    //This member var is ONLY used by Staff's activities
+    private Table table;
+    private List<Table> listTable;
+
+    public Booking getStaffBooking() {
+        return staffBooking;
+    }
+
+    public void setStaffBooking(Booking staffBooking) {
+        this.staffBooking = staffBooking;
+    }
+
+    private Booking staffBooking;
+    //End Staff's variable
     private static Config instance;
 
     private Config() {
     }
-
-    //This member var is ONLY used by Staff's activities
-    private Table table;
-
-    private List<Table> listTable;
 
     public static synchronized Config getInstance() {
         if (instance == null) {
