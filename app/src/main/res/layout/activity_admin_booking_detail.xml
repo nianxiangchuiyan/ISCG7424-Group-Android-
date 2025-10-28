@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".admin.AdminBookingDetailActivity">
+
+    <include layout="@layout/include_top_profile" />
+    <include layout="@layout/include_staff_nav" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edt_timeslot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Timeslot (int)"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/edt_seats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seats required"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/edt_table_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Table name"/>
+
+        <EditText
+            android:id="@+id/edt_contact_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contact number"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/edt_memo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Memo"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="16dp">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"/>
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"/>
+    </LinearLayout>
+
+    <include layout="@layout/include_bottom_nav" />
+</LinearLayout>

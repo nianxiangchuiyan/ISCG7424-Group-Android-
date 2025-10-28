@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.dinecraft.app.Customer.CustomerMainActivity;
+import com.dinecraft.app.admin.AdminMainActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -38,6 +39,10 @@ public class MainActivity extends BaseActivity {
     //Temp function to go to staff main activity
     public void goStaff(View view) {
         Intent i = new Intent(this, StaffMainActivity.class);
+        startActivity(i);
+    }
+    public void goAdmin(View view) {
+        Intent i = new Intent(this, AdminMainActivity.class);
         startActivity(i);
     }
     public void goToCustomerMain(View view) {

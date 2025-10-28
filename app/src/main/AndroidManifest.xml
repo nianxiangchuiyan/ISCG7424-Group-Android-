@@ -29,12 +29,15 @@
         <activity android:name=".Customer.CustomerMainActivity" android:exported="false" />
         <activity android:name=".Customer.CusFoodListActivity" android:exported="false" />
         <activity android:name=".Customer.CusFoodAddActivity" android:exported="false" />
+        <!--Admin Activity -->
+        <activity android:name=".admin.AdminBookingAddActivity" android:exported="false"/>
 
+        <activity android:name=".admin.AdminMainActivity" android:exported="false"/>
         <!-- Other Activities -->
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".UploadDataActivity" android:exported="false" />
         <activity android:name=".RegisterActivity" android:exported="false" />
-
+        <activity android:name=".admin.AdminBookingDetailActivity" android:exported="false"/>
         <!-- Launcher Activity -->
         <activity
             android:name=".LoginActivity"
