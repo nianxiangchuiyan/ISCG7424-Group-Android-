@@ -1,8 +1,11 @@
 package com.dinecraft.app.staff;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,8 +25,10 @@ import com.dinecraft.app.Booking;
 import com.dinecraft.app.Config;
 import com.dinecraft.app.Customer.CustomerMainActivity;
 import com.dinecraft.app.R;
+import com.dinecraft.app.Table;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class StaffBookingDetailActivity extends BaseActivity {
@@ -53,7 +58,6 @@ public class StaffBookingDetailActivity extends BaseActivity {
         setupTopProfile();
 
         curBooking = Config.getInstance().getStaffBooking();
-        docId = curBooking.getBooking_id();
 
         tv_date = findViewById(R.id.tv_date);
         iv_datepicker = findViewById(R.id.iv_datepicker);
@@ -70,20 +74,34 @@ public class StaffBookingDetailActivity extends BaseActivity {
 
         // Initialize the spinner for timeslots
         Config.init_spinner(spnTimeslot, R.array.staff_timeslot, this);
-        // Initialize the spinner for tables
-        Config.getInstance().init_table_spinner(spnTableName, this);
+        // Initialize the spinner for tables, callback is to set the booking data
+        Config.getInstance().init_table_spinner(spnTableName, this, () -> {
+            ArrayAdapter<Table> adapter;
+            if(curBooking!=null){
+                docId = curBooking.getBooking_id();
+                tv_date.setText(curBooking.getDate());
+                spnTimeslot.setSelection(curBooking.getTimeslot());
+                edtPrefName.setText(curBooking.getPref_name());
+                edtSeats.setText(String.valueOf(curBooking.getSeat_required()));
+                adapter = (ArrayAdapter<Table>) spnTableName.getAdapter();
+                int position = -1;
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    Log.d("DDDDD", "Index " + i + ": '" + adapter.getItem(i).getName() + "'");
+                    if (adapter.getItem(i).getName().equals(curBooking.getTable_name())) {
+                        position = i;
+                        break;
+                    }
+                }
+                Log.d("DDDDD", "(-----------------------------)");
+                //int position = adapter.getPosition(curBooking.getTable_name().trim());
+                //int position = adapter.getPosition("BigRoundTable");
+                if(position >= 0) spnTableName.setSelection(position);
+                edtContact.setText(curBooking.getContact_number());
+                edtMemo.setText(curBooking.getMemo());
+            }
+        });
         iv_datepicker.setOnClickListener(v-> showDatePicker(tv_date));
         iv_delete.setOnClickListener(v-> tv_date.setText("dd/mm/yyyy"));
-
-        if(curBooking!=null){
-            tv_date.setText(curBooking.getDate().toString());
-            spnTimeslot.setSelection(curBooking.getTimeslot());
-            edtPrefName.setText(curBooking.getPref_name());
-            edtSeats.setText(String.valueOf(curBooking.getSeat_required()));
-            //spnTableName.setSelection(curBooking.getTable_name());
-            edtContact.setText(curBooking.getContact_number());
-            edtMemo.setText(curBooking.getMemo());
-        }
 
         btnUpdate.setOnClickListener(v -> {
             String date = tv_date.getText().toString().trim();
@@ -104,8 +122,8 @@ public class StaffBookingDetailActivity extends BaseActivity {
                             "pref_name", prefName)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Booking updated", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(this, CustomerMainActivity.class);
-                        i.putExtra("pref_name", prefName);
+                        Intent i = new Intent(this, StaffMainActivity.class);
+                        //i.putExtra("pref_name", prefName);
                         startActivity(i);
                         finish();
                     })
@@ -113,7 +131,7 @@ public class StaffBookingDetailActivity extends BaseActivity {
         });
 
         btnCancel.setOnClickListener(v -> {
-            Intent i = new Intent(this, CustomerMainActivity.class);
+            Intent i = new Intent(this, StaffMainActivity.class);
             startActivity(i);
             finish();
         });
@@ -139,4 +157,11 @@ public class StaffBookingDetailActivity extends BaseActivity {
         );
         dialog.show();
     }
+
+    public interface onDataLoadedListener {
+        void onDataLoaded();
+    }
+
+
+
 }

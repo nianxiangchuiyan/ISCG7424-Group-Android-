@@ -65,7 +65,7 @@
             android:paddingHorizontal="5dp"
             android:layout_marginVertical="10dp"
             android:hint="Prefer Name"
-            android:inputType="number" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/edt_seats"

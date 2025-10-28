@@ -38,8 +38,8 @@ public class BookingRVAdapter extends RecyclerView.Adapter<BookingRVAdapter.Book
     @Override
     public void onBindViewHolder(@NonNull BookingVH holder, int position) {
         Booking booking = bookings.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        holder.tv_date.setText(sdf.format(booking.getDate()));
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        holder.tv_date.setText(booking.getDate());
         holder.tv_contactnumber.setText(booking.getContact_number());
         holder.tv_timeslot.setText(String.valueOf(booking.getTimeslot()));
         holder.tv_memo.setText(booking.getMemo());
@@ -47,7 +47,7 @@ public class BookingRVAdapter extends RecyclerView.Adapter<BookingRVAdapter.Book
         holder.tv_prefname.setText(booking.getPref_name());
         holder.tv_seatrequired.setText(String.valueOf(booking.getSeat_required()));
         holder.cardview.setOnClickListener( aVoid -> {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             Config.getInstance().setStaffBooking(booking);
             context.startActivity(new Intent(context, StaffBookingDetailActivity.class));
         });

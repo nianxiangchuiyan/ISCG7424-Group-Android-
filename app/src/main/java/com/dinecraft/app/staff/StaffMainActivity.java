@@ -68,8 +68,6 @@ public class StaffMainActivity extends BaseActivity {
             return insets;
         });
 
-
-
         // Initialize the bottom navigation bar
         setupBottomNav();
         setupStaffNav();
@@ -84,7 +82,7 @@ public class StaffMainActivity extends BaseActivity {
         // Initialize the spinner for timeslots
         Config.init_spinner(spn_timeslot, R.array.staff_timeslot, this);
         // Initialize the spinner for tables
-        Config.getInstance().init_table_spinner(spn_table, this);
+        Config.getInstance().init_table_spinner(spn_table, this, null);
         iv_datepicker.setOnClickListener(v-> showDatePicker(tv_date));
         iv_delete.setOnClickListener(v-> tv_date.setText("dd/mm/yyyy"));
 
@@ -178,14 +176,11 @@ public class StaffMainActivity extends BaseActivity {
             Toast.makeText(this, "No bookings to show", Toast.LENGTH_SHORT).show();
             return null;
         }
-        List<Booking> filteredList = new ArrayList<>();
-        filteredList.addAll(allBookings);
-
+        List<Booking> filteredList = new ArrayList<>(allBookings);
 
         if(!strDate.equals("dd/mm/yyyy")){
             for(Booking booking : allBookings) {
-
-                if (!new SimpleDateFormat("dd/MM/yyyy").format(booking.getDate()).equals(strDate)) {
+                if (!booking.getDate().equals(strDate)) {
                     filteredList.remove(booking);
                 }
             }

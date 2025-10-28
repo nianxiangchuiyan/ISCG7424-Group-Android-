@@ -1,13 +1,10 @@
 package com.dinecraft.app;
 
-import java.util.Date;
-
 public class Booking {
     private String booking_id;
-    private Date date;
+    private String date;
     private int timeslot;
     private int seat_required;
-    //private Table table;
     private String table_name;
     private String pref_name;
     private String contact_number;
@@ -23,11 +20,11 @@ public class Booking {
         this.booking_id = booking_id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -47,16 +44,7 @@ public class Booking {
         this.seat_required = seat_required;
     }
 
-//    public Table getTable() {
-//        return table;
-//    }
-//
-//    public void setTable(Table table) {
-//        this.table = table;
-//    }
-
     public String getTable_name() {
-        //if(this.table == null) return "";
         return this.table_name;
     }
 

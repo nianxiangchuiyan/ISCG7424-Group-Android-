@@ -7,6 +7,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.dinecraft.app.staff.StaffBookingDetailActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class Config {
 //        spn_quiz_filter.setAdapter(adapter);
 //    }
 //
-    public void init_table_spinner(Spinner spn_target, Context context) {
+    public void init_table_spinner(Spinner spn_target, Context context, StaffBookingDetailActivity.onDataLoadedListener onDataLoaded) {
             fetchTables(new FirestoreCallback() {
                 @Override
                 public void onComplete(List<Table> tables) {
@@ -73,6 +74,10 @@ public class Config {
                     );
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spn_target.setAdapter(adapter);
+
+                    if (onDataLoaded != null) {
+                        onDataLoaded.onDataLoaded();
+                    }
 
                 }
 
