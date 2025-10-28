@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dinecraft.app">
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,43 +12,77 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DineCraft">
         <activity
-            android:name=".staff.StaffBookingDetailActivity"
+            android:name=".staff.StaffBookingAddActivity"
             android:exported="false" />
-        <!-- Staff Activities -->
-        <activity android:name=".staff.StaffTableAddActivity" android:exported="false" />
-        <activity android:name=".staff.StaffTableDetailActivity" android:exported="false" />
-        <activity android:name=".staff.StaffTableListActivity" android:exported="false" />
-        <activity android:name=".staff.StaffMainActivity" android:exported="false" />
-        <activity android:name=".staff.StaffFoodListActivity" android:exported="false" />
-        <activity android:name=".staff.StaffFoodAddActivity" android:exported="false" />
-        <activity android:name=".staff.StaffFoodDetailActivity" android:exported="false" />
-
-        <!-- Customer Activities -->
-        <activity android:name=".Customer.CustomerBookingAddActivity" android:exported="false" />
-        <activity android:name=".Customer.CustomerBookingDeleteActivity" android:exported="false" />
-        <activity android:name=".Customer.CustomerBookingDetailActivity" android:exported="false" />
-        <activity android:name=".Customer.CustomerMainActivity" android:exported="false" />
-        <activity android:name=".Customer.CusFoodListActivity" android:exported="false" />
-        <activity android:name=".Customer.CusFoodAddActivity" android:exported="false" />
-        <!--Admin Activity -->
-        <activity android:name=".admin.AdminBookingAddActivity" android:exported="false"/>
-
-        <activity android:name=".admin.AdminMainActivity" android:exported="false"/>
-        <!-- Other Activities -->
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".UploadDataActivity" android:exported="false" />
-        <activity android:name=".RegisterActivity" android:exported="false" />
-        <activity android:name=".admin.AdminBookingDetailActivity" android:exported="false"/>
-        <!-- Launcher Activity -->
+        <activity
+            android:name=".staff.StaffBookingDetailActivity"
+            android:exported="false" /> <!-- Staff Activities -->
+        <activity
+            android:name=".staff.StaffTableAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffTableDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffTableListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffFoodListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffFoodAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".staff.StaffFoodDetailActivity"
+            android:exported="false" /> <!-- Customer Activities -->
+        <activity
+            android:name=".Customer.CustomerBookingAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.CustomerBookingDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.CustomerBookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.CustomerMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.CusFoodListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.CusFoodAddActivity"
+            android:exported="false" /> <!-- Admin Activity -->
+        <activity
+            android:name=".admin.AdminBookingAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminMainActivity"
+            android:exported="false" /> <!-- Other Activities -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UploadDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminBookingDetailActivity"
+            android:exported="false" /> <!-- Launcher Activity -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
