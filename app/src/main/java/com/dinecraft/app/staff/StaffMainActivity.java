@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -50,6 +51,7 @@ public class StaffMainActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private Button btnAdd;
 
 
 
@@ -85,6 +87,12 @@ public class StaffMainActivity extends BaseActivity {
         Config.getInstance().init_table_spinner(spn_table, this, null);
         iv_datepicker.setOnClickListener(v-> showDatePicker(tv_date));
         iv_delete.setOnClickListener(v-> tv_date.setText("dd/mm/yyyy"));
+
+        btnAdd = findViewById(R.id.btn_add);
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(StaffMainActivity.this, StaffBookingAddActivity.class);
+            startActivity(intent);
+        });
 
 
         // Initialize Firestore

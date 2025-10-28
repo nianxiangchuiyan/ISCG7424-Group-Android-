@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="15dp">
+        android:padding="5dp">
         <TextView
             android:id="@+id/tv_staff_date"
             android:layout_width="100dp"
@@ -62,8 +62,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp"
+        android:paddingHorizontal="10dp"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp">
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Booking"
+            android:background="@drawable/button_primary"
+            app:backgroundTint="@null"/>
+    </LinearLayout>
     <!-- include bottom nav -->
 
     <include layout="@layout/include_bottom_nav" />
