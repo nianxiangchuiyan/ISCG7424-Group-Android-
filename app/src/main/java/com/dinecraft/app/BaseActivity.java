@@ -143,7 +143,7 @@ public class BaseActivity extends AppCompatActivity {
         ImageView iv_logout = findViewById(R.id.iv_staff_logout);
         if(tv_email==null || iv_logout==null) return;
 
-        tv_email.setText(currentUser.getEmail());
+        tv_email.setText(currentUser.getDisplayName() + "\n" + currentUser.getEmail());
         iv_logout.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Logout")

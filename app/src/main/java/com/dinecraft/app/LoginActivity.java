@@ -76,6 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            loadUserName(user.getUid());
+                        }
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
@@ -83,6 +87,37 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void loadUserName(String uid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        String name = snapshot.getString("name");
+                        if (name != null) {
+                            updateUserDisplayName(name);
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Read failed", e));
+    }
+    private void updateUserDisplayName(String name) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        UserProfileChangeRequest request =
+                new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build();
+
+        user.updateProfile(request)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Auth", "DisplayName updated");
+                    Toast.makeText(this, "Load DisplayName successful", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> Log.e("Auth", "Update failed", e));
     }
 
     private void signInWithGoogle() {

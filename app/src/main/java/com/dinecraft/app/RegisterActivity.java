@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
+    private EditText etEmail, etPassword, etName;
     private Button btnCreate;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Initialize UI elements
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etName = findViewById(R.id.etName);
         btnCreate = findViewById(R.id.btnCreate);
 
         // Initialize Firebase
@@ -43,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
+        String name = etName.getText().toString().trim();
+
 
         // Input validation
         if (TextUtils.isEmpty(email)) {
@@ -60,6 +63,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(this, "Enter Full Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Create account in Firebase Auth
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -69,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // Store user info in Firestore
                         Map<String, Object> user = new HashMap<>();
                         user.put("email", email);
+                        user.put("name", name);
                         user.put("role", "customer"); // Default role
 
                         db.collection("users").document(uid)
