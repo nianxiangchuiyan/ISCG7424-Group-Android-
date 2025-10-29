@@ -104,7 +104,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (navDashboard != null) {
 
-            if (currentUser == null) {
+            if (currentUser == null || Config.getInstance().getCurrUserRole() == null) {
                 navDashboard.setVisibility(View.GONE);
                 //return;
             } else {
@@ -139,7 +139,7 @@ public class BaseActivity extends AppCompatActivity {
             });
         }
 
-        if (currentUser != null) {
+        if (currentUser != null && Config.getInstance().getCurrUserRole() != null) {
 
             if (navAccount != null) {
                 navLogin.setVisibility(View.GONE);
@@ -171,16 +171,20 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setupTopProfile() {
         LinearLayout ll_profile = findViewById(R.id.ll_profile);
+        TextView tv_name = findViewById(R.id.tv_staff_name);
+        TextView tv_role = findViewById(R.id.tv_staff_role);
         TextView tv_email = findViewById(R.id.tv_staff_email);
         ImageView iv_logout = findViewById(R.id.iv_staff_logout);
-        if (ll_profile == null || tv_email == null || iv_logout == null) return;
+        if (ll_profile == null || tv_name == null || iv_logout == null) return;
 
-        if (currentUser == null) {
+        if (currentUser == null || Config.getInstance().getCurrUserRole() == null) {
+            currentUser = null;
             ll_profile.setVisibility(View.GONE);
             return;
         }
-
-        tv_email.setText(currentUser.getDisplayName() + " (" + Config.getInstance().getCurrUserRole() + ")\n" + currentUser.getEmail());
+        tv_name.setText(currentUser.getDisplayName());
+        tv_role.setText(Config.getInstance().getCurrUserRole());
+        tv_email.setText(currentUser.getEmail());
         iv_logout.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Logout")
