@@ -21,10 +21,10 @@ public class CategoriesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category("Pizza", R.drawable.pizza));
-        categoryList.add(new Category("Burgers", R.drawable.burger));
-        categoryList.add(new Category("Drinks", R.drawable.drinks));
-        categoryList.add(new Category("Desserts", R.drawable.dessert));
+        categoryList.add(new Category("Soup", R.drawable.Soup));
+        categoryList.add(new Category("Burgers", R.drawable.Burger));
+        categoryList.add(new Category("Drinks", R.drawable.Soda));
+        categoryList.add(new Category("Desserts", R.drawable.Dessert));
 
         CategoryAdapter adapter = new CategoryAdapter(categoryList, category ->
                 Toast.makeText(this, "Clicked " + category.getName(), Toast.LENGTH_SHORT).show()
