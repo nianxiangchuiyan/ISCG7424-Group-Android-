@@ -31,25 +31,24 @@ public class MainActivity extends BaseActivity {
         });
         //init button nav bar
         setupBottomNav();
-        //setupStaffNav();
-        //setupTopProfile();
+        setupTopProfile();
     }
 
 
     //Temp function to go to staff main activity
-    public void goStaff(View view) {
-        Intent i = new Intent(this, StaffMainActivity.class);
-        startActivity(i);
-    }
-    public void goAdmin(View view) {
-        Intent i = new Intent(this, AdminMainActivity.class);
-        startActivity(i);
-    }
-    public void goToCustomerMain(View view) {
-        Intent i = new Intent(this, CustomerMainActivity.class);
-        i.putExtra("pref_name", "Temp-Customer");
-        startActivity(i);
-    }
+//    public void goStaff(View view) {
+//        Intent i = new Intent(this, StaffMainActivity.class);
+//        startActivity(i);
+//    }
+//    public void goAdmin(View view) {
+//        Intent i = new Intent(this, AdminMainActivity.class);
+//        startActivity(i);
+//    }
+//    public void goToCustomerMain(View view) {
+//        Intent i = new Intent(this, CustomerMainActivity.class);
+//        i.putExtra("pref_name", "Temp-Customer");
+//        startActivity(i);
+//    }
 
     private void testdb() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

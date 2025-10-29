@@ -14,12 +14,13 @@
         <activity
             android:name=".ProfileEditActivity"
             android:exported="false" />
+        <!-- Staff Activities -->
         <activity
             android:name=".staff.StaffBookingAddActivity"
             android:exported="false" />
         <activity
             android:name=".staff.StaffBookingDetailActivity"
-            android:exported="false" /> <!-- Staff Activities -->
+            android:exported="false" />
         <activity
             android:name=".staff.StaffTableAddActivity"
             android:exported="false" />
@@ -40,7 +41,8 @@
             android:exported="false" />
         <activity
             android:name=".staff.StaffFoodDetailActivity"
-            android:exported="false" /> <!-- Customer Activities -->
+            android:exported="false" />
+        <!-- Customer Activities -->
         <activity
             android:name=".Customer.CustomerBookingAddActivity"
             android:exported="false" />
@@ -58,16 +60,23 @@
             android:exported="false" />
         <activity
             android:name=".Customer.CusFoodAddActivity"
-            android:exported="false" /> <!-- Admin Activity -->
+            android:exported="false" />
+        <!-- Admin Activity -->
         <activity
             android:name=".admin.AdminBookingAddActivity"
             android:exported="false" />
         <activity
             android:name=".admin.AdminMainActivity"
-            android:exported="false" /> <!-- Other Activities -->
+            android:exported="false" />
+        <!-- Other Activities -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UploadDataActivity"
             android:exported="false" />
@@ -80,11 +89,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

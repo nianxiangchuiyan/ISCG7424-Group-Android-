@@ -26,6 +26,7 @@ public class Config {
     public void setStaffBooking(Booking staffBooking) {
         this.staffBooking = staffBooking;
     }
+    private String currUserRole;
 
     private Booking staffBooking;
     //End Staff's variable
@@ -88,6 +89,13 @@ public class Config {
             });
     }
 
+    public String getCurrUserRole() {
+        return currUserRole;
+    }
+
+    public void setCurrUserRole(String currUserRole) {
+        this.currUserRole = currUserRole;
+    }
 
     //This method is ONLY used by Staff's activities
     public Table getTable() {

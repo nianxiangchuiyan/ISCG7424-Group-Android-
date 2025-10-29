@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dinecraft.app.Customer.CusFoodListActivity;
 import com.dinecraft.app.Customer.CustomerBookingAddActivity;
 import com.dinecraft.app.Customer.CustomerMainActivity;
+import com.dinecraft.app.admin.AdminMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
 import com.dinecraft.app.staff.StaffTableListActivity;
@@ -35,21 +37,30 @@ public class BaseActivity extends AppCompatActivity {
         Button btnFoods = findViewById(R.id.btn_staff_foods);
         Button btnTables = findViewById(R.id.btn_staff_tables);
 
-        if (btnBookings != null) {
-            btnBookings.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, StaffMainActivity.class));
-            });
+        String currUserRole = Config.getInstance().getCurrUserRole();
+
+        if (currUserRole.equals("staff")) {
+
+            if (btnBookings != null) {
+                btnBookings.setOnClickListener(v -> {
+                    startActivity(new Intent(BaseActivity.this, StaffMainActivity.class));
+                });
+            }
+            if (btnFoods != null) {
+                btnFoods.setOnClickListener(v -> {
+                    startActivity(new Intent(BaseActivity.this, StaffFoodListActivity.class));
+                });
+            }
+            if (btnTables != null) {
+                btnTables.setOnClickListener(v -> {
+                    startActivity(new Intent(BaseActivity.this, StaffTableListActivity.class));
+                });
+            }
+        } else {
+            Toast.makeText(this, "You are not authorized to access this page.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(BaseActivity.this, MainActivity.class));
         }
-        if (btnFoods != null) {
-            btnFoods.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, StaffFoodListActivity.class));
-            });
-        }
-        if (btnTables != null) {
-            btnTables.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, StaffTableListActivity.class));
-            });
-        }
+
 
     }
 
@@ -78,7 +89,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setupBottomNav() {
         LinearLayout navBooking = findViewById(R.id.nav_booking);
-        LinearLayout navSearch = findViewById(R.id.nav_search);
+        LinearLayout navDashboard = findViewById(R.id.nav_dashboard);
         LinearLayout navHome = findViewById(R.id.nav_home);
         LinearLayout navAccount = findViewById(R.id.nav_account);
         LinearLayout navLogin = findViewById(R.id.nav_login);
@@ -87,17 +98,37 @@ public class BaseActivity extends AppCompatActivity {
             navBooking.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(BaseActivity.this, CustomerBookingAddActivity.class));
+                    startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
                 }
             });
         }
-        if (navSearch != null) {
-            navSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //startActivity(new Intent(BaseActivity.this, SearchActivity.class));
-                }
-            });
+        if (navDashboard != null) {
+
+            if (currentUser == null) {
+                navDashboard.setVisibility(View.GONE);
+                //return;
+            } else {
+                navDashboard.setVisibility(View.VISIBLE);
+
+                navDashboard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String role = ""; // "" means un login user.
+                        if (currentUser != null) {
+                            role = Config.getInstance().getCurrUserRole();
+                        }
+
+                        if (role.equals("administrator")) {
+                            startActivity(new Intent(BaseActivity.this, AdminMainActivity.class));
+                        } else if (role.equals("staff")) {
+                            startActivity(new Intent(BaseActivity.this, StaffMainActivity.class));
+                        } else {
+                            startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
+                        }
+                    }
+                });
+            }
         }
         if (navHome != null) {
             navHome.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +139,7 @@ public class BaseActivity extends AppCompatActivity {
             });
         }
 
-        if(currentUser != null) {
+        if (currentUser != null) {
 
             if (navAccount != null) {
                 navLogin.setVisibility(View.GONE);
@@ -122,7 +153,7 @@ public class BaseActivity extends AppCompatActivity {
                 });
             }
 
-        }else {
+        } else {
 
             //either show Login or Account
             if (navLogin != null) {
@@ -139,19 +170,24 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setupTopProfile() {
+        LinearLayout ll_profile = findViewById(R.id.ll_profile);
         TextView tv_email = findViewById(R.id.tv_staff_email);
         ImageView iv_logout = findViewById(R.id.iv_staff_logout);
-        if(tv_email==null || iv_logout==null) return;
+        if (ll_profile == null || tv_email == null || iv_logout == null) return;
 
-        tv_email.setText(currentUser.getDisplayName() + "\n" + currentUser.getEmail());
+        if (currentUser == null) {
+            ll_profile.setVisibility(View.GONE);
+            return;
+        }
+
+        tv_email.setText(currentUser.getDisplayName() + " (" + Config.getInstance().getCurrUserRole() + ")\n" + currentUser.getEmail());
         iv_logout.setOnClickListener(v -> {
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")
                     .setPositiveButton("Yes", (dialog1, which) -> {
                         mAuth.signOut();
-                        startActivity(new Intent(BaseActivity.this, LoginActivity.class));
-                        finish();
+                        startActivity(new Intent(BaseActivity.this, MainActivity.class));
                     })
                     .setNegativeButton("No", (dialog1, which) -> {
                         dialog1.dismiss();
@@ -166,9 +202,10 @@ public class BaseActivity extends AppCompatActivity {
         //Verify user is logged in, otherwise redir to login activity.
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(BaseActivity.this, LoginActivity.class));
-            finish();
-        }
+//        if (currentUser == null) {
+//            //Can NOT use jump, otherwise it will be a DeadLoop.
+//            //startActivity(new Intent(BaseActivity.this, MainActivity.class));
+//            //Toast.makeText(this, "You are not logged in.", Toast.LENGTH_SHORT).show();
+//        }
     }
 }

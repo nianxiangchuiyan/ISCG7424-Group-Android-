@@ -12,6 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dinecraft.app.admin.AdminMainActivity;
+import com.dinecraft.app.staff.StaffMainActivity;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -80,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (user != null) {
                             loadUserName(user.getUid());
                         }
+
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, MainActivity.class));
                         finish();
@@ -96,8 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnSuccessListener(snapshot -> {
                     if (snapshot.exists()) {
                         String name = snapshot.getString("name");
+                        String role = snapshot.getString("role");
                         if (name != null) {
                             updateUserDisplayName(name);
+                            Config.getInstance().setCurrUserRole(role);
                         }
                     }
                 })
@@ -114,10 +119,12 @@ public class LoginActivity extends AppCompatActivity {
 
         user.updateProfile(request)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d("Auth", "DisplayName updated");
+                    //Log.d("Auth", "DisplayName updated");
                     Toast.makeText(this, "Load DisplayName successful", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> Log.e("Auth", "Update failed", e));
+
+        user.reload();
     }
 
     private void signInWithGoogle() {
