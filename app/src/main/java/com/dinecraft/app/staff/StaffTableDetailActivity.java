@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -69,16 +70,25 @@ public class StaffTableDetailActivity extends BaseActivity {
             finish();
         });
         btn_delete.setOnClickListener(v ->{
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("tables").document(table.getId()).delete()
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(StaffTableDetailActivity.this, "Table deleted", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), StaffTableListActivity.class));
-                        finish();
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Delete Table")
+                    .setMessage("Are you sure you want to delete this table?")
+                    .setPositiveButton("Yes", (dialog1, which) -> {
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("tables").document(table.getId()).delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(StaffTableDetailActivity.this, "Table deleted", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), StaffTableListActivity.class));
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(StaffTableDetailActivity.this, "Table delete failed", Toast.LENGTH_SHORT).show();
+                                });
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(StaffTableDetailActivity.this, "Table delete failed", Toast.LENGTH_SHORT).show();
-                    });
+                    .setNegativeButton("No", null)
+                    .create();
+            dialog.show();
 
         });
 

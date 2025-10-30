@@ -1,5 +1,6 @@
 package com.dinecraft.app.staff;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -69,13 +70,22 @@ public class StaffFoodDetailActivity extends BaseActivity {
         });
 
         btn_delete.setOnClickListener(v -> {
-            FirebaseFirestore.getInstance().collection("Food").document(id).delete()
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "Food deleted", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), StaffFoodListActivity.class));
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Delete failed", Toast.LENGTH_SHORT).show());
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("Delete Food")
+                    .setMessage("Are you sure you want to delete this food?")
+                            .setNegativeButton("No", null)
+                            .setPositiveButton("Yes", (dialog1, which) -> {
+
+                                FirebaseFirestore.getInstance().collection("Food").document(id).delete()
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Food deleted", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), StaffFoodListActivity.class));
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> Toast.makeText(this, "Delete failed", Toast.LENGTH_SHORT).show());
+                            })
+                    .create();
+            dialog.show();
         });
 
         btn_cancel.setOnClickListener(v -> {
