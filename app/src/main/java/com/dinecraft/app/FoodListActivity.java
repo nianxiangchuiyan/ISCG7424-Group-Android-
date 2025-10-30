@@ -36,7 +36,7 @@ public class FoodListActivity extends AppCompatActivity {
         allFoods.add(new Food("3", "Glowberry Salad", "Meal", "Glowberrys from lush caves", 11.49 , "glowberrysalad"));
         allFoods.add(new Food("4", "Chorus Fruit Punch", "Drinks", "Carbonated drink made from Chorus fruit", 2.99, "chorusfruit"));
         allFoods.add(new Food("5", "Cheese Cake", "Desserts", "Cheese from a cow and Chocolate with green icing ontop", 5.99,"minecraftcheesecake"));
-
+//3
         filteredFoods = new ArrayList<>();
         for (Food f : allFoods) {
             if (f.getCategory().equalsIgnoreCase(categoryName)) {
