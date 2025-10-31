@@ -1,5 +1,9 @@
 package com.dinecraft.app;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Booking {
     private String booking_id;
     private String date;
@@ -24,8 +28,27 @@ public class Booking {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String dateString) {
+        Date date = null;
+        // 1. Define the format of the input string
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        // 2. Define the desired output format
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        try {
+            // 3. Parse the string into a Date object
+            date = inputFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle the parsing error, e.g., by logging or showing a message to the user
+        }
+
+        if (date != null) {
+            // 4. Format the Date object into the desired string format
+            String formattedDate = outputFormat.format(date);
+            System.out.println(formattedDate); // Output: 10/31/2025
+        }
     }
 
     public int getTimeslot() {

@@ -86,7 +86,7 @@ public class CustomerMainActivity extends BaseActivity {
 
     private void loadBookings() {
         FirebaseFirestore.getInstance().collection("bookings")
-                .whereEqualTo("pref_name", getIntent().getStringExtra("pref_name"))
+//                .whereEqualTo("pref_name", getIntent().getStringExtra("pref_name"))
                 .get()
                 .addOnSuccessListener(snap -> {
                     list.clear();
