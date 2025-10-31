@@ -16,6 +16,7 @@ import com.dinecraft.app.Booking;
 import com.dinecraft.app.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,7 +49,7 @@ public class BookingRVAdapter extends RecyclerView.Adapter<BookingRVAdapter.Book
     public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
         Booking b = bookings.get(position);
         holder.tv_title.setText(b.getTable_name() == null ? "Booking" : b.getTable_name());
-        String dateStr = b.getDate() != null ? fmt.format(b.getDate()) : "";
+        String dateStr = b.getDate() != null ? fmt.format(b.getDate()) : ""+getmyDate();
         holder.tv_sub.setText("Date: " + dateStr + " • Slot: " + b.getTimeslot() + " • Seats: " + b.getSeat_required());
 
         // Toggle the delete button visibility based on delete mode
@@ -81,5 +82,10 @@ public class BookingRVAdapter extends RecyclerView.Adapter<BookingRVAdapter.Book
             cv = itemView.findViewById(R.id.cv_booking);
             deleteButton = itemView.findViewById(R.id.btn_delete_booking);
         }
+    }
+    private String getmyDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = sdf.format(new Date());
+        return formattedDate;
     }
 }

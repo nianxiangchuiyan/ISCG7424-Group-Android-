@@ -15,7 +15,6 @@ import com.dinecraft.app.BaseActivity;
 import com.dinecraft.app.Config;
 import com.dinecraft.app.R;
 import com.dinecraft.app.Table;
-import com.dinecraft.app.staff.StaffTableAddActivity;
 import com.dinecraft.app.staff.TableRVAdapter;
 
 import java.util.List;

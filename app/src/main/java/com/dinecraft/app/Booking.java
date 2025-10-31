@@ -34,7 +34,7 @@ public class Booking {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
         // 2. Define the desired output format
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
             // 3. Parse the string into a Date object
