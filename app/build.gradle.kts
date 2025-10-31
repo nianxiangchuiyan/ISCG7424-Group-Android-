@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.analytics)
+    implementation(libs.play.services.tasks)
 
     // Testing
     testImplementation(libs.junit)

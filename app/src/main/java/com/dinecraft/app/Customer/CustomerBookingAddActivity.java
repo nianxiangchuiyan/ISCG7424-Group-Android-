@@ -108,13 +108,13 @@ public class CustomerBookingAddActivity extends BaseActivity {
     private int parseIntSafe(String s) { try { return Integer.parseInt(s); } catch (Exception e) { return 0; } }
 
     private void showDatePicker(TextView tvDate) {
-        // 获取当前日期
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // 创建日期选择器对话框
+
         DatePickerDialog dialog = new DatePickerDialog(
                 this,
                 (DatePicker view, int year1, int month1, int dayOfMonth) -> {
