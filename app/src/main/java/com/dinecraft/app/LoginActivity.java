@@ -3,6 +3,7 @@ package com.dinecraft.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -186,5 +187,15 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnFailureListener(e ->
                         Toast.makeText(this, "Error checking user: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                 );
+    }
+
+    public void loginAsAdmin(View view) {
+        etEmail.setText("a@a.com");
+        etPassword.setText("123456");
+    }
+
+    public void loginAsStaff(View view) {
+        etEmail.setText("staff@a.com");
+        etPassword.setText("123456");
     }
 }
