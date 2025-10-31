@@ -2,81 +2,69 @@ package com.dinecraft.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.dinecraft.app.Customer.CustomerMainActivity;
-import com.dinecraft.app.admin.AdminMainActivity;
-import com.dinecraft.app.staff.StaffMainActivity;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
+
+    private List<Category> categoryList;
+    private List<Category> filteredList;
+    private CategoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        testdb();
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        //init button nav bar
+        EdgeToEdge.enable(this);
+
         setupBottomNav();
         setupTopProfile();
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_categories);
+        EditText searchBar = findViewById(R.id.search_bar);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        // Category items with images
+        categoryList = new ArrayList<>();
+        categoryList.add(new Category("Sides", R.drawable.soup));
+        categoryList.add(new Category("Meals", R.drawable.burger));
+        categoryList.add(new Category("Drinks", R.drawable.soda));
+        categoryList.add(new Category("Desserts", R.drawable.dessert));
+
+        filteredList = new ArrayList<>(categoryList);
+
+        adapter = new CategoryAdapter(filteredList, category -> {
+            Intent intent = new Intent(MainActivity.this, FoodListActivity.class);
+            intent.putExtra("categoryName", category.getName());
+            startActivity(intent);
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        // Search logic
+        searchBar.addTextChangedListener(new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterCategories(s.toString());
+            }
+            @Override public void afterTextChanged(android.text.Editable s) {}
+        });
     }
 
-
-    //Temp function to go to staff main activity
-//    public void goStaff(View view) {
-//        Intent i = new Intent(this, StaffMainActivity.class);
-//        startActivity(i);
-//    }
-//    public void goAdmin(View view) {
-//        Intent i = new Intent(this, AdminMainActivity.class);
-//        startActivity(i);
-//    }
-//    public void goToCustomerMain(View view) {
-//        Intent i = new Intent(this, CustomerMainActivity.class);
-//        i.putExtra("pref_name", "Temp-Customer");
-//        startActivity(i);
-//    }
-
-    private void testdb() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        //trying names
-        String[] collections = {"staff", "orders","Bookings", "users","Foods","Food","Tables"};
-
-        for (String collectionName : collections) {
-            db.collection(collectionName)
-                    .get()
-                    .addOnSuccessListener(querySnapshot -> {
-                        if (querySnapshot.isEmpty()) {
-                            Log.d("FirestoreTest", "No documents found in " + collectionName);
-                        } else {
-                            for (QueryDocumentSnapshot doc : querySnapshot) {
-                                Log.d("FirestoreTest", "Collection: " + collectionName +
-                                        " | DocID: " + doc.getId() +
-                                        " | Data: " + doc.getData());
-                            }
-                        }
-                    })
-                    .addOnFailureListener(e ->
-                            Log.e("FirestoreTest", "Failed to read from " + collectionName, e));
+    private void filterCategories(String text) {
+        filteredList.clear();
+        for (Category c : categoryList) {
+            if (c.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(c);
+            }
         }
-    }
-
-    public void Updata(View view) {
-        Intent i = new Intent(this, UploadDataActivity.class);
-        startActivity(i);
+        adapter.notifyDataSetChanged();
     }
 }

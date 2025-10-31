@@ -3,11 +3,9 @@ package com.dinecraft.app;
 import android.os.Bundle;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class CategoriesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         categoryList = new ArrayList<>();
-        categoryList.add(new Category("Soup", R.drawable.soup));
+        categoryList.add(new Category("Sides", R.drawable.soup));
         categoryList.add(new Category("Meals", R.drawable.burger));
         categoryList.add(new Category("Drinks", R.drawable.soda));
         categoryList.add(new Category("Desserts", R.drawable.dessert));
@@ -41,12 +39,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        // Search filter listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false; // We filter as user types, no need to submit
-            }
+            public boolean onQueryTextSubmit(String query) { return false; }
 
             @Override
             public boolean onQueryTextChange(String newText) {

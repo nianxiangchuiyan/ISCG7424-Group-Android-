@@ -1,5 +1,6 @@
 package com.dinecraft.app;
 
+import android.widget.SearchView;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -31,9 +32,9 @@ public class FoodListActivity extends AppCompatActivity {
 
         // Hard-coded foods must add with image(replace with Firestore later)
         allFoods = new ArrayList<>();
-        allFoods.add(new Food("1", "Ender Pearl Pasta", "Meal", "Noodles and Pearls from another Dimension", 10.99, "ender_pearl_pasta"));
-        allFoods.add(new Food("2", "Nether Sandwich", "Meal", "A sandwich with pork procured from Hoglins", 12.99, "nethersandwich"));
-        allFoods.add(new Food("3", "Glowberry Salad", "Meal", "Glowberrys from lush caves", 11.49 , "glowberrysalad"));
+        allFoods.add(new Food("1", "Ender Pearl Pasta", "Meals", "Noodles and Pearls from another Dimension", 10.99, "ender_pearl_pasta"));
+        allFoods.add(new Food("2", "Nether Sandwich", "Meals", "A sandwich with pork procured from Hoglins", 12.99, "nethersandwich"));
+        allFoods.add(new Food("3", "Glowberry Salad", "Meals", "Glowberrys from lush caves", 11.49 , "glowberrysalad"));
         allFoods.add(new Food("4", "Chorus Fruit Punch", "Drinks", "Carbonated drink made from Chorus fruit", 2.99, "chorusfruit"));
         allFoods.add(new Food("5", "Cheese Cake", "Desserts", "Cheese from a cow and Chocolate with green icing ontop", 5.99,"minecraftcheesecake"));
 //3
@@ -46,5 +47,27 @@ public class FoodListActivity extends AppCompatActivity {
 
         foodAdapter = new FoodAdapter(filteredFoods);
         recyclerView.setAdapter(foodAdapter);
+
+        SearchView searchView = findViewById(R.id.searchViewFood);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredFoods.clear();
+                for (Food f : allFoods) {
+                    if (f.getCategory().equalsIgnoreCase(categoryName) &&
+                            f.getName().toLowerCase().contains(newText.toLowerCase())) {
+                        filteredFoods.add(f);
+                    }
+                }
+                foodAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
     }
 }

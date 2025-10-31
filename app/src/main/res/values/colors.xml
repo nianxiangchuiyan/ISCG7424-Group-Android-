@@ -6,4 +6,8 @@
     <color name="second">#6FC703</color>
     <color name="third">#1B3500</color>
     <color name="danger">#F45632</color>
+    <color name="mc_dirt">#8B6A3F</color> <!-- Minecraft dirt brown -->
+    <color name="mc_grass">#3F9E4D</color> <!-- Minecraft grass green -->
+    <color name="mc_grass_dark">#2E7B38</color> <!-- for contrast -->
+    <color name="mc_text_light">#E8F5E9</color> <!-- softer whiteish text -->
 </resources>

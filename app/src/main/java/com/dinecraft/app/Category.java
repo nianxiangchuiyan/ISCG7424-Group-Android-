@@ -9,11 +9,6 @@ public class Category {
         this.imageResId = imageResId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getImageResId() {
-        return imageResId;
-    }
+    public String getName() { return name; }
+    public int getImageResId() { return imageResId; }
 }
