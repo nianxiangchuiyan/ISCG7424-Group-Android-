@@ -4,10 +4,9 @@
     android:padding="12dp"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_marginBottom="8dp"
->
+    android:layout_marginBottom="8dp">
 
-<TextView
+    <TextView
         android:id="@+id/tvFoodName"
         android:textSize="18sp"
         android:textStyle="bold"

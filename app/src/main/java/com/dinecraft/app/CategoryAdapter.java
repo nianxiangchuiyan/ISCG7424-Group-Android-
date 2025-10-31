@@ -1,5 +1,6 @@
 package com.dinecraft.app;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +39,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Category category = categoryList.get(position);
         holder.name.setText(category.getName());
         holder.image.setImageResource(category.getImageResId());
-
         holder.itemView.setOnClickListener(v -> {
-            listener.onCategoryClick(category);
+            Intent intent = new Intent(v.getContext(), FoodListActivity.class);
+            intent.putExtra("categoryName", category.getName());
+            v.getContext().startActivity(intent);
         });
+
     }
 
     @Override
