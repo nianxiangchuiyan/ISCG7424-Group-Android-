@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dinecraft.app.Customer.CusFoodListActivity;
 import com.dinecraft.app.Customer.CustomerBookingAddActivity;
 import com.dinecraft.app.Customer.CustomerMainActivity;
+import com.dinecraft.app.admin.AdminActivity;
 import com.dinecraft.app.admin.AdminMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
 import com.dinecraft.app.staff.StaffMainActivity;
@@ -120,7 +121,7 @@ public class BaseActivity extends AppCompatActivity {
                         }
 
                         if (role.equals("administrator")) {
-                            startActivity(new Intent(BaseActivity.this, AdminMainActivity.class));
+                            startActivity(new Intent(BaseActivity.this, AdminActivity.class));
                         } else if (role.equals("staff")) {
                             startActivity(new Intent(BaseActivity.this, StaffMainActivity.class));
                         } else {

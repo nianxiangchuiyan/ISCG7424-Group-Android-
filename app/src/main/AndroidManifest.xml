@@ -14,6 +14,10 @@
         <activity
             android:name=".ProfileEditActivity"
             android:exported="false" />
+        <!-- Admin Activities -->
+        <activity
+            android:name=".admin.AdminActivity"
+            android:exported="false"/>
         <!-- Staff Activities -->
         <activity
             android:name=".staff.StaffBookingAddActivity"
@@ -90,6 +94,9 @@
             android:name=".LoginActivity"
             android:exported="true">
         </activity>
+
+
+"
     </application>
 
 </manifest>
