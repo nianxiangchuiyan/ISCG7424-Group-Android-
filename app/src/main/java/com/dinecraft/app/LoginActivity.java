@@ -82,10 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (user != null) {
                             loadUserName(user.getUid());
                         }
-
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
+                        Toast.makeText(this, "Great, redirecting to main page.", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(this, MainActivity.class));
+//                        finish();
                     } else {
                         Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -120,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
         user.updateProfile(request)
                 .addOnSuccessListener(aVoid -> {
                     //Log.d("Auth", "DisplayName updated");
-                    Toast.makeText(this, "Load DisplayName successful", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "Load DisplayName successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, MainActivity.class));
                 })
                 .addOnFailureListener(e -> Log.e("Auth", "Update failed", e));
 
