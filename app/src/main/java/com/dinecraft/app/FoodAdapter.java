@@ -1,6 +1,5 @@
 package com.dinecraft.app;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
-    private final List<Food> foodList;
+    private List<Food> foodList;
 
     public FoodAdapter(List<Food> foodList) {
         this.foodList = foodList;
@@ -24,48 +23,50 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.food_list_item, parent, false); // keep your xml name
+                .inflate(R.layout.food_list_item, parent, false);
         return new FoodViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         Food food = foodList.get(position);
+
         holder.tvName.setText(food.getName());
         holder.tvDesc.setText(food.getDescription());
-        holder.tvPrice.setText("$" + String.format("%.2f", food.getPrice()));
+        holder.tvPrice.setText("$" + food.getPrice());
 
-        // load drawable by imageName (must match file in res/drawable without extension)
-        Context ctx = holder.itemView.getContext();
-        String imageName = food.getImageName();
+        // ✅ Get Firestore imageUrl safely
+        String imageName = food.getImageUrl();
         int resId = 0;
-        if (imageName != null && !imageName.isEmpty()) {
-            resId = ctx.getResources().getIdentifier(imageName, "drawable", ctx.getPackageName());
+
+        if (imageName != null && !imageName.trim().isEmpty()) {
+            resId = holder.itemView.getContext().getResources()
+                    .getIdentifier(imageName, "drawable",
+                            holder.itemView.getContext().getPackageName());
         }
 
-        if (resId != 0) {
-            holder.foodImage.setImageResource(resId);
-        } else {
-            // fallback placeholder (use any drawable you have)
-            holder.foodImage.setImageResource(R.drawable.ic_launcher_background);
+        if (resId == 0) {
+            resId = R.drawable.placeholder; // Fallback
         }
+
+        holder.imgFood.setImageResource(resId);
     }
 
     @Override
     public int getItemCount() {
-        return foodList == null ? 0 : foodList.size();
+        return foodList.size();
     }
 
     static class FoodViewHolder extends RecyclerView.ViewHolder {
-        ImageView foodImage;
         TextView tvName, tvDesc, tvPrice;
+        ImageView imgFood;
 
-        FoodViewHolder(@NonNull View itemView) {
+        FoodViewHolder(View itemView) {
             super(itemView);
-            foodImage = itemView.findViewById(R.id.foodImage); // matches food_list_item.xml provided earlier
             tvName = itemView.findViewById(R.id.tvFoodName);
             tvDesc = itemView.findViewById(R.id.tvFoodDesc);
             tvPrice = itemView.findViewById(R.id.tvFoodPrice);
+            imgFood = itemView.findViewById(R.id.foodImage);
         }
     }
 }

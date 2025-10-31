@@ -27,7 +27,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         categoryList = new ArrayList<>();
         categoryList.add(new Category("Sides", R.drawable.soup));
-        categoryList.add(new Category("Meals", R.drawable.burger));
+        categoryList.add(new Category("Mains", R.drawable.burger));
         categoryList.add(new Category("Drinks", R.drawable.soda));
         categoryList.add(new Category("Desserts", R.drawable.dessert));
 
