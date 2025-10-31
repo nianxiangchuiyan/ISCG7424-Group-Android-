@@ -41,6 +41,7 @@ public class CustomerBookingAddActivity extends BaseActivity {
         setupBottomNav();
         setupTopProfile();
 
+
         prefName = getIntent().getStringExtra("pref_name");
         if (prefName == null) prefName = "Temp-Customer";
 
