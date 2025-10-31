@@ -27,6 +27,8 @@ public class CusFoodAddActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_food_add);
         setupCusNav();
+        setupBottomNav();
+        setupTopProfile();
 
         edt_name = findViewById(R.id.edt_food_name);
         edt_category = findViewById(R.id.edt_food_category);

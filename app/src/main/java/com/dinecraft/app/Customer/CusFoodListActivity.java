@@ -29,6 +29,8 @@ public class CusFoodListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_food_list);
         setupCusNav();
+        setupBottomNav();
+        setupTopProfile();
 
         rv = findViewById(R.id.rv_staff_food_list);
         rv.setLayoutManager(new LinearLayoutManager(this));

@@ -22,6 +22,8 @@ public class CustomerBookingDeleteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_booking_delete);
         setupCusNav();
+        setupBottomNav();
+        setupTopProfile();
 
         prefName = getIntent().getStringExtra("pref_name");
         if (prefName == null) prefName = "Temp-Customer";

@@ -32,6 +32,7 @@ public class CustomerMainActivity extends BaseActivity {
         setContentView(R.layout.activity_customer_main);
         setupCusNav(); // reuse existing nav include
         setupBottomNav();
+        setupTopProfile();
         rv = findViewById(R.id.rv_customer_bookings);
         rv.setLayoutManager(new LinearLayoutManager(this));
 

@@ -23,7 +23,9 @@ public class CustomerBookingDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_booking_detail);
-        setupStaffNav();
+        setupCusNav();
+        setupBottomNav();
+        setupTopProfile();
 
         docId = getIntent().getStringExtra("doc_id");
         prefName = getIntent().getStringExtra("pref_name");
