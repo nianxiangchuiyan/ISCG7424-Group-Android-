@@ -38,12 +38,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         Category category = categoryList.get(position);
         holder.name.setText(category.getName());
         holder.image.setImageResource(category.getImageResId());
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, FoodListActivity.class);
-            intent.putExtra("categoryName", category.getName());
-            context.startActivity(intent);
-        });
 
+        holder.itemView.setOnClickListener(v -> {
+            listener.onCategoryClick(category);
+        });
     }
 
     @Override
