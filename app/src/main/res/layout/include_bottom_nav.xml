@@ -5,6 +5,8 @@
     android:layout_height="64dp"
     android:orientation="horizontal"
     android:background="#FFFFFF"
+    android:elevation="10dp"
+    android:translationZ="10dp"
     android:gravity="center"
     android:padding="6dp">
 
