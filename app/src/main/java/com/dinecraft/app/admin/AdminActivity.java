@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dinecraft.app.BaseActivity;
 import com.dinecraft.app.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Simple Admin Activity to manage users.
@@ -146,50 +149,60 @@ public class AdminActivity extends BaseActivity {
                 });
     }
 
+
     private void showAddUserDialog() {
-        LayoutInflater li = LayoutInflater.from(this);
-        View dialogView = li.inflate(R.layout.dialog_add_user, null);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_user, null);
         EditText etName = dialogView.findViewById(R.id.etName);
         EditText etEmail = dialogView.findViewById(R.id.etEmail);
-        Spinner spRole = dialogView.findViewById(R.id.spRole);
-
-        ArrayAdapter<String> adapterRole = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"customer", "staff", "administrator"});
-        adapterRole.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spRole.setAdapter(adapterRole);
+        EditText etPassword = dialogView.findViewById(R.id.etPassword);
+        EditText etRole = dialogView.findViewById(R.id.etRole);
 
         new AlertDialog.Builder(this)
-                .setTitle("Add user (creates Firestore record and sends reset email)")
+                .setTitle("Create New User")
                 .setView(dialogView)
-                .setPositiveButton("Create", (dialog, which) -> {
+                .setPositiveButton("Create", (d, w) -> {
                     String name = etName.getText().toString().trim();
                     String email = etEmail.getText().toString().trim();
-                    String role = (String) spRole.getSelectedItem();
+                    String password = etPassword.getText().toString().trim();
+                    String role = etRole.getText().toString().trim();
 
-                    if (TextUtils.isEmpty(email)) {
-                        showToast("Email required");
+                    if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+                        Toast.makeText(this, "All fields required", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    // Create Firestore document
-                    CollectionReference usersRef = db.collection("users");
-                    // Use email as ID-safe key? we'll auto-generate
-                    usersRef.add(new UserFirestore(name, email, role))
-                            .addOnSuccessListener(documentReference -> {
-                                showToast("User document created");
-                                // send password reset email so the user can set their password
-                                auth.sendPasswordResetEmail(email)
-                                        .addOnCompleteListener(task -> {
-                                            if (task.isSuccessful()) {
-                                                showToast("Reset email sent to " + email);
-                                            } else {
-                                                showToast("Failed to send reset email");
-                                            }
-                                        });
-                            })
-                            .addOnFailureListener(e -> showToast("Failed to create user doc: " + e.getMessage()));
+
+                    createNewUser(email, password, name, role);
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
+    private void createNewUser(String email, String password, String name, String role) {
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser newUser = task.getResult().getUser();
+                        if (newUser == null) return;
+
+                        String uid = newUser.getUid();
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("email", email);
+                        user.put("name", name);
+                        user.put("role", role.isEmpty() ? "customer" : role);
+
+                        db.collection("users").document(uid)
+                                .set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                                    loadUsers();
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(this, "Firestore Error: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                    } else {
+                        Toast.makeText(this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 
     // simple helper showToast using BaseActivity method if exists or fallback
     private void showToast(String text) {
