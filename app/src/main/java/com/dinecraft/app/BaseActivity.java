@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dinecraft.app.Customer.CusFoodListActivity;
 import com.dinecraft.app.Customer.CustomerBookingAddActivity;
 import com.dinecraft.app.Customer.CustomerMainActivity;
+import com.dinecraft.app.Customer.CustomerTableListActivity;
 import com.dinecraft.app.admin.AdminActivity;
 import com.dinecraft.app.admin.AdminMainActivity;
 import com.dinecraft.app.staff.StaffFoodListActivity;
@@ -66,9 +67,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setupCusNav() {
-        Button btnBookings = findViewById(R.id.btn_staff_bookings);
-        Button btnFoods = findViewById(R.id.btn_staff_foods);
-        Button btnTables = findViewById(R.id.btn_staff_tables);
+        Button btnBookings = findViewById(R.id.btn_cus_bookings);
+        Button btnFoods = findViewById(R.id.btn_cus_foods);
+        Button btnTables = findViewById(R.id.btn_cus_tables);
 
         if (btnBookings != null) {
             btnBookings.setOnClickListener(v -> {
@@ -77,12 +78,12 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (btnFoods != null) {
             btnFoods.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
+                startActivity(new Intent(BaseActivity.this, CusFoodListActivity.class));
             });
         }
         if (btnTables != null) {
             btnTables.setOnClickListener(v -> {
-                startActivity(new Intent(BaseActivity.this, CustomerMainActivity.class));
+                startActivity(new Intent(BaseActivity.this, CustomerTableListActivity.class));
             });
         }
 

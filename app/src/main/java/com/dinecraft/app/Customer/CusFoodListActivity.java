@@ -2,6 +2,7 @@ package com.dinecraft.app.Customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,7 +28,9 @@ public class CusFoodListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_food_list);
-        setupStaffNav();
+        setupCusNav();
+        setupBottomNav();
+        setupTopProfile();
 
         rv = findViewById(R.id.rv_staff_food_list);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -35,6 +38,7 @@ public class CusFoodListActivity extends BaseActivity {
         rv.setAdapter(adapter);
 
         btn_add = findViewById(R.id.btn_add);
+        btn_add.setVisibility(View.INVISIBLE);
         btn_add.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), CusFoodAddActivity.class)));
 
         loadFoods();
