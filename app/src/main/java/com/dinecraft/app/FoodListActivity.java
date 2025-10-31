@@ -1,12 +1,15 @@
 package com.dinecraft.app;
 
-import android.widget.SearchView;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ public class FoodListActivity extends AppCompatActivity {
     private List<Food> allFoods;
     private List<Food> filteredFoods;
     private FoodAdapter foodAdapter;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,41 +30,43 @@ public class FoodListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         TextView title = findViewById(R.id.tvCategoryTitle);
+        SearchView searchView = findViewById(R.id.searchViewFood);
 
         String categoryName = getIntent().getStringExtra("categoryName");
         title.setText(categoryName);
 
-        // Hard-coded foods must add with image(replace with Firestore later)
+        db = FirebaseFirestore.getInstance();
         allFoods = new ArrayList<>();
-        allFoods.add(new Food("1", "Ender Pearl Pasta", "Meals", "Noodles and Pearls from another Dimension", 10.99, "ender_pearl_pasta"));
-        allFoods.add(new Food("2", "Nether Sandwich", "Meals", "A sandwich with pork procured from Hoglins", 12.99, "nethersandwich"));
-        allFoods.add(new Food("3", "Glowberry Salad", "Meals", "Glowberrys from lush caves", 11.49 , "glowberrysalad"));
-        allFoods.add(new Food("4", "Chorus Fruit Punch", "Drinks", "Carbonated drink made from Chorus fruit", 2.99, "chorusfruit"));
-        allFoods.add(new Food("5", "Cheese Cake", "Desserts", "Cheese from a cow and Chocolate with green icing ontop", 5.99,"minecraftcheesecake"));
-//3
         filteredFoods = new ArrayList<>();
-        for (Food f : allFoods) {
-            if (f.getCategory().equalsIgnoreCase(categoryName)) {
-                filteredFoods.add(f);
-            }
-        }
 
         foodAdapter = new FoodAdapter(filteredFoods);
         recyclerView.setAdapter(foodAdapter);
 
-        SearchView searchView = findViewById(R.id.searchViewFood);
+        // ✅ Fetch from Firestore
+        db.collection("Food")
+                .whereEqualTo("category", categoryName)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        Food food = doc.toObject(Food.class);
+                        allFoods.add(food);
+                        filteredFoods.add(food);
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    title.setText("Error loading food");
+                });
+
+        // ✅ Search bar
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+            @Override public boolean onQueryTextSubmit(String query) { return false; }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 filteredFoods.clear();
                 for (Food f : allFoods) {
-                    if (f.getCategory().equalsIgnoreCase(categoryName) &&
-                            f.getName().toLowerCase().contains(newText.toLowerCase())) {
+                    if (f.getName().toLowerCase().contains(newText.toLowerCase())) {
                         filteredFoods.add(f);
                     }
                 }
@@ -68,6 +74,5 @@ public class FoodListActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 }

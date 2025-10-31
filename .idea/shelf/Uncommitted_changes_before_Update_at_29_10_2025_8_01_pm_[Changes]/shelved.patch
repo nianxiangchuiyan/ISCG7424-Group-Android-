@@ -1,0 +1,229 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:id=\"@+id/main\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".MainActivity\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Hello World!\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n    <Button\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Temp > Staff Dashboard\"\r\n        android:onClick=\"goStaff\"/>\r\n    <Button\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Temp > admin Dashboard\"\r\n        android:onClick=\"goAdmin\"/>\r\n    <Button\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Temp > Customer Dashboard\"\r\n        android:onClick=\"goToCustomerMain\"/>\r\n    <Button\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Temp > Upload Data\"\r\n        android:onClick=\"Updata\"/>\r\n\r\n    <!-- include bottom nav -->\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:gravity=\"center\"\r\n        android:orientation=\"vertical\">\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"/>\r\n    </LinearLayout>\r\n    <include layout=\"@layout/include_bottom_nav\" />\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision b5d64cc245da336162cfa60f5c50690f709cac00)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1761659205090)
+@@ -6,38 +6,54 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+-    tools:context=".MainActivity">
++    tools:context=".MainActivity"
++    android:padding="16dp">
+ 
++    <!-- Title -->
++    <TextView
++        android:id="@+id/titleText"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Foods."
++        android:textSize="32sp"
++        android:textStyle="bold"
++        android:textColor="@android:color/black"
++        android:layout_gravity="center_horizontal"
++        android:paddingBottom="20dp"/>
++
++    <!-- Main content -->
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Hello World!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++        android:layout_gravity="center_horizontal"
++        android:paddingBottom="16dp" />
++
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Temp > Staff Dashboard"
+-        android:onClick="goStaff"/>
++        android:onClick="goStaff" />
++
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="Temp > admin Dashboard"
+-        android:onClick="goAdmin"/>
++        android:text="Temp > Admin Dashboard"
++        android:onClick="goAdmin" />
++
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Temp > Customer Dashboard"
+-        android:onClick="goToCustomerMain"/>
++        android:onClick="goToCustomerMain" />
++
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Temp > Upload Data"
+-        android:onClick="Updata"/>
++        android:onClick="Updata" />
+ 
+-    <!-- include bottom nav -->
++    <!-- Filler space -->
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+@@ -46,8 +62,10 @@
+         android:orientation="vertical">
+         <TextView
+             android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"/>
++            android:layout_height="wrap_content" />
+     </LinearLayout>
++
++    <!-- Include bottom navigation -->
+     <include layout="@layout/include_bottom_nav" />
+ 
+-</LinearLayout>
+\ No newline at end of file
++</LinearLayout>
+Index: app/src/main/java/com/dinecraft/app/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.dinecraft.app;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\n\r\nimport androidx.activity.EdgeToEdge;\r\nimport androidx.core.graphics.Insets;\r\nimport androidx.core.view.ViewCompat;\r\nimport androidx.core.view.WindowInsetsCompat;\r\n\r\nimport com.dinecraft.app.Customer.CustomerMainActivity;\r\nimport com.dinecraft.app.admin.AdminMainActivity;\r\nimport com.dinecraft.app.staff.StaffMainActivity;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.QueryDocumentSnapshot;\r\n\r\npublic class MainActivity extends BaseActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        EdgeToEdge.enable(this);\r\n        testdb();\r\n        setContentView(R.layout.activity_main);\r\n        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {\r\n            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());\r\n            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);\r\n            return insets;\r\n        });\r\n        //init button nav bar\r\n        setupBottomNav();\r\n        //setupStaffNav();\r\n        //setupTopProfile();\r\n    }\r\n\r\n\r\n    //Temp function to go to staff main activity\r\n    public void goStaff(View view) {\r\n        Intent i = new Intent(this, StaffMainActivity.class);\r\n        startActivity(i);\r\n    }\r\n    public void goAdmin(View view) {\r\n        Intent i = new Intent(this, AdminMainActivity.class);\r\n        startActivity(i);\r\n    }\r\n    public void goToCustomerMain(View view) {\r\n        Intent i = new Intent(this, CustomerMainActivity.class);\r\n        i.putExtra(\"pref_name\", \"Temp-Customer\");\r\n        startActivity(i);\r\n    }\r\n\r\n    private void testdb() {\r\n        FirebaseFirestore db = FirebaseFirestore.getInstance();\r\n\r\n        //trying names\r\n        String[] collections = {\"staff\", \"orders\",\"Bookings\", \"users\",\"Foods\",\"Food\",\"Tables\"};\r\n\r\n        for (String collectionName : collections) {\r\n            db.collection(collectionName)\r\n                    .get()\r\n                    .addOnSuccessListener(querySnapshot -> {\r\n                        if (querySnapshot.isEmpty()) {\r\n                            Log.d(\"FirestoreTest\", \"No documents found in \" + collectionName);\r\n                        } else {\r\n                            for (QueryDocumentSnapshot doc : querySnapshot) {\r\n                                Log.d(\"FirestoreTest\", \"Collection: \" + collectionName +\r\n                                        \" | DocID: \" + doc.getId() +\r\n                                        \" | Data: \" + doc.getData());\r\n                            }\r\n                        }\r\n                    })\r\n                    .addOnFailureListener(e ->\r\n                            Log.e(\"FirestoreTest\", \"Failed to read from \" + collectionName, e));\r\n        }\r\n    }\r\n\r\n    public void Updata(View view) {\r\n        Intent i = new Intent(this, UploadDataActivity.class);\r\n        startActivity(i);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/dinecraft/app/MainActivity.java b/app/src/main/java/com/dinecraft/app/MainActivity.java
+--- a/app/src/main/java/com/dinecraft/app/MainActivity.java	(revision b5d64cc245da336162cfa60f5c50690f709cac00)
++++ b/app/src/main/java/com/dinecraft/app/MainActivity.java	(date 1761659088453)
+@@ -4,6 +4,9 @@
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.Toast;
+ 
+ import androidx.activity.EdgeToEdge;
+ import androidx.core.graphics.Insets;
+@@ -18,44 +21,88 @@
+ 
+ public class MainActivity extends BaseActivity {
+ 
++    private EditText searchBar;
++    private Button btnSearch;
++    private FirebaseFirestore db;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         EdgeToEdge.enable(this);
+-        testdb();
+         setContentView(R.layout.activity_main);
++
+         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+             return insets;
+         });
+-        //init button nav bar
++
++        // Initialize Firestore
++        db = FirebaseFirestore.getInstance();
++
++        // Initialize search UI
++        searchBar = findViewById(R.id.searchBar);
++        btnSearch = findViewById(R.id.btnSearch);
++
++        btnSearch.setOnClickListener(v -> {
++            String query = searchBar.getText().toString().trim();
++            if (query.isEmpty()) {
++                Toast.makeText(this, "Enter a food name to search", Toast.LENGTH_SHORT).show();
++            } else {
++                searchFoods(query);
++            }
++        });
++
++        // Test Firestore collections
++        testdb();
++
++        // Init bottom navigation bar
+         setupBottomNav();
+-        //setupStaffNav();
+-        //setupTopProfile();
+     }
+ 
++    // Search Foods collection
++    private void searchFoods(String query) {
++        db.collection("Foods")
++                .whereGreaterThanOrEqualTo("name", query)
++                .whereLessThanOrEqualTo("name", query + "\uf8ff")
++                .get()
++                .addOnSuccessListener(querySnapshot -> {
++                    if (querySnapshot.isEmpty()) {
++                        Toast.makeText(this, "No foods found", Toast.LENGTH_SHORT).show();
++                    } else {
++                        for (QueryDocumentSnapshot doc : querySnapshot) {
++                            Log.d("SearchResult", "Found: " + doc.getData());
++                        }
++                        Toast.makeText(this, "Results logged in Logcat", Toast.LENGTH_SHORT).show();
++                    }
++                })
++                .addOnFailureListener(e -> {
++                    Toast.makeText(this, "Search failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
++                    Log.e("SearchError", "Error searching foods", e);
++                });
++    }
+ 
+-    //Temp function to go to staff main activity
++    // Temp navigation buttons
+     public void goStaff(View view) {
+         Intent i = new Intent(this, StaffMainActivity.class);
+         startActivity(i);
+     }
++
+     public void goAdmin(View view) {
+         Intent i = new Intent(this, AdminMainActivity.class);
+         startActivity(i);
+     }
++
+     public void goToCustomerMain(View view) {
+         Intent i = new Intent(this, CustomerMainActivity.class);
+         i.putExtra("pref_name", "Temp-Customer");
+         startActivity(i);
+     }
+ 
++    // Firestore test method
+     private void testdb() {
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
+-
+-        //trying names
+-        String[] collections = {"staff", "orders","Bookings", "users","Foods","Food","Tables"};
++        String[] collections = {"staff", "orders", "Bookings", "users", "Foods", "Food", "Tables"};
+ 
+         for (String collectionName : collections) {
+             db.collection(collectionName)
+@@ -80,4 +127,4 @@
+         Intent i = new Intent(this, UploadDataActivity.class);
+         startActivity(i);
+     }
+-}
+\ No newline at end of file
++}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"jbr-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision b5d64cc245da336162cfa60f5c50690f709cac00)
++++ b/.idea/misc.xml	(date 1761614418885)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
