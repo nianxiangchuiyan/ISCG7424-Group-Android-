@@ -85,7 +85,11 @@
             android:exported="false" />
         <activity
             android:name=".admin.AdminBookingDetailActivity"
-            android:exported="false" /> <!-- Launcher Activity -->
+            android:exported="false" />
+        <activity android:name=".Customer.CustomerTableListActivity"
+            android:exported="false" />
+
+        <!-- Launcher Activity -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">

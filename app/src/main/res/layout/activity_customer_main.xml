@@ -10,7 +10,7 @@
     tools:context=".Customer.CustomerMainActivity">
 
     <include layout="@layout/include_top_profile" />
-    <include layout="@layout/include_staff_nav" />
+    <include layout="@layout/include_cus_nav" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_customer_bookings"
