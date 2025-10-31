@@ -31,7 +31,7 @@ public class CustomerTableListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_staff_table_list);
+        setContentView(R.layout.activity_cus_table_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,17 +42,15 @@ public class CustomerTableListActivity extends BaseActivity {
         setupBottomNav();
         setupCusNav();
         setupTopProfile();
+        try{
+        tableList = Config.getInstance().getTableList();}catch (Exception e){
+            e.printStackTrace();
+        }
 
-        tableList = Config.getInstance().getTableList();
-        rv = findViewById(R.id.rv_staff_table_list);
+        rv = findViewById(R.id.rv_cus_table_list);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TableRVAdapter(this, tableList);
         rv.setAdapter(adapter);
-
-        btn_add = findViewById(R.id.btn_add);
-        btn_add.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), StaffTableAddActivity.class));
-        });
 
     }
 }
