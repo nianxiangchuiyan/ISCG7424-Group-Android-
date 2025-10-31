@@ -47,7 +47,7 @@ public class Booking {
         if (date != null) {
             // 4. Format the Date object into the desired string format
             String formattedDate = outputFormat.format(date);
-            System.out.println(formattedDate); // Output: 10/31/2025
+            this.date=formattedDate;
         }
     }
 

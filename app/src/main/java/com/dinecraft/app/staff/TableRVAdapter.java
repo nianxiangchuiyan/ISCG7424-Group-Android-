@@ -49,7 +49,11 @@ public class TableRVAdapter extends RecyclerView.Adapter<TableRVAdapter.TableVie
 
     @Override
     public int getItemCount() {
-        return tableList.size();
+        try{
+            return tableList.size();
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public class TableViewHolder extends RecyclerView.ViewHolder{
